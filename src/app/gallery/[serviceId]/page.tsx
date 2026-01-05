@@ -457,13 +457,13 @@ export default function GalleryPage({
   return (
     <div className="min-h-screen bg-black">
       {/* Navigation Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-sm border-b border-gray-800">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-sm border-b border-[#5d866c]/30">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => router.push("/")}
-                className="text-gray-300 hover:text-white transition-colors duration-300 flex items-center space-x-2"
+                className="text-[#e6d8c3] hover:text-white transition-colors duration-300 flex items-center space-x-2"
               >
                 <svg
                   className="w-5 h-5"
@@ -499,14 +499,14 @@ export default function GalleryPage({
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
               {serviceNames[serviceId as keyof typeof serviceNames]}
             </h1>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            <p className="text-xl text-[#e6d8c3] max-w-2xl mx-auto">
               {
                 serviceDescriptions[
                   serviceId as keyof typeof serviceDescriptions
                 ]
               }
             </p>
-            <p className="text-gray-400 mt-4">
+            <p className="text-[#e6d8c3] mt-4">
               {filteredPhotos.length} fotografías en esta galería
             </p>
           </div>
@@ -528,7 +528,7 @@ export default function GalleryPage({
                       photo.size
                     )}`}
                   >
-                    <span className="text-gray-400 text-sm text-center px-4">
+                    <span className="text-[#e6d8c3] text-sm text-center px-4">
                       {photo.title}
                     </span>
                   </div>
@@ -538,12 +538,12 @@ export default function GalleryPage({
                     <div className="p-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
                       <h3 className="text-lg font-bold mb-2">{photo.title}</h3>
                       {photo.description && (
-                        <p className="text-gray-300 text-sm mb-3">
+                        <p className="text-[#e6d8c3] text-sm mb-3">
                           {photo.description}
                         </p>
                       )}
                       <div className="mt-3">
-                        <span className="inline-block px-3 py-1 bg-white/20 rounded-full text-xs">
+                        <span className="inline-block px-3 py-1 bg-[#c2a68c]/20 rounded-full text-xs">
                           Ver detalle
                         </span>
                       </div>
@@ -560,7 +560,7 @@ export default function GalleryPage({
           <div className="max-w-4xl mx-auto px-4 text-center">
             <button
               onClick={() => router.push("/#services")}
-              className="px-8 py-4 bg-white text-black hover:bg-gray-200 transition-colors duration-300 rounded-lg"
+              className="px-8 py-4 bg-[#c2a68c] text-black hover:bg-[#e6d8c3] transition-colors duration-300 rounded-lg"
             >
               Ver Todos los Servicios
             </button>

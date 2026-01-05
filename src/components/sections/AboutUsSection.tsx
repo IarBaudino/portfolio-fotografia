@@ -14,22 +14,22 @@ const AboutUsSection = () => {
             
           </h2>
           <div className="space-y-6 max-w-3xl mx-auto">
-            <p className="text-lg text-gray-300 leading-relaxed">
-              Soy Iara Baudino, fotógrafa en formación que está construyendo su
-              camino dentro del oficio. Actualmente trabajo en proyectos
-              freelance para pequeños emprendimientos y clientes locales, y
-              estoy ampliando mi portfolio con el objetivo de profesionalizar
-              cada vez más mi trabajo.
+            <p className="text-lg text-[#e6d8c3] leading-relaxed">
+              Somos Bruno Mascaro y Iara Baudino, un equipo dedicado a capturar momentos con
+              una mirada estética cuidada y un profundo amor por la fotografía. Nos
+              especializamos en coberturas de eventos —como cumpleaños, casamientos y
+              encuentros corporativos—, además de realizar books, fotografía de producto y otros
+              proyectos visuales que integran fotografía y producción audiovisual.
             </p>
-            <p className="text-lg text-gray-300 leading-relaxed">
-              Me interesa documentar historias, crear retratos auténticos y
-              generar contenido visual que ayude a personas, marcas y proyectos
-              a mostrar su identidad de manera clara y atractiva.
+            <p className="text-lg text-[#e6d8c3] leading-relaxed">
+              Nuestro enfoque se centra en ofrecer un trabajo pulido, sensible y visualmente
+              superior, buscando que cada imagen transmita la esencia y la emoción de lo que
+              ocurre frente a nuestra cámara. Creemos en la importancia de acompañar cada
+              proyecto con profesionalismo, creatividad y una atención personalizada.
             </p>
-            <p className="text-lg text-gray-300 leading-relaxed">
-              Estoy en una etapa de crecimiento, abierta a nuevos desafíos y
-              oportunidades que me permitan seguir aprendiendo, sumar
-              experiencia y consolidar mi estilo.
+            <p className="text-lg text-[#e6d8c3] leading-relaxed">
+              Nos encantaría ser parte de tu idea y ayudarte a convertirla en imágenes que
+              perduren.
             </p>
           </div>
         </div>

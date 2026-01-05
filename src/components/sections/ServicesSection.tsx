@@ -80,7 +80,7 @@ const ServicesSection = () => {
           <h2 className="text-5xl font-thin text-white tracking-wider mb-4">
             PORTFOLIO
           </h2>
-          <div className="w-24 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent mx-auto"></div>
+          <div className="w-24 h-px bg-gradient-to-r from-transparent via-[#e6d8c3]/30 to-transparent mx-auto"></div>
         </div>
 
         <div className="flex">
@@ -93,10 +93,10 @@ const ServicesSection = () => {
                     onClick={() => handleCategoryClick(category.id)}
                     onMouseEnter={() => setHoveredCategory(category.id)}
                     onMouseLeave={() => setHoveredCategory(null)}
-                    className={`w-full text-left py-5 px-6 transition-all duration-500 group-hover:bg-white/5 rounded-lg ${
+                    className={`w-full text-left py-5 px-6 transition-all duration-500 group-hover:bg-[#c2a68c]/5 rounded-lg ${
                       selectedCategory === category.id
-                        ? "text-white bg-white/10 border-l-4 border-white shadow-lg"
-                        : "text-gray-400 hover:text-white hover:bg-white/5 hover:border-l-4 hover:border-gray-300"
+                        ? "text-white bg-[#c2a68c]/10 border-l-4 border-[#c2a68c] shadow-lg"
+                        : "text-[#e6d8c3] hover:text-white hover:bg-[#c2a68c]/5 hover:border-l-4 hover:border-[#5d866c]"
                     }`}
                   >
                     <span className="text-lg font-light tracking-wide">
@@ -107,7 +107,7 @@ const ServicesSection = () => {
                   {/* Preview de imágenes al hacer hover */}
                   {hoveredCategory === category.id &&
                     selectedCategory !== category.id && (
-                      <div className="absolute left-full top-0 ml-6 w-56 h-36 bg-black/95 backdrop-blur-md rounded-xl p-3 z-20 shadow-2xl border border-white/10">
+                      <div className="absolute left-full top-0 ml-6 w-56 h-36 bg-black/95 backdrop-blur-md rounded-xl p-3 z-20 shadow-2xl border border-[#5d866c]/20">
                         <div className="grid grid-cols-3 gap-2 h-full">
                           {category.previewImages.map((image, index) => (
                             <div
@@ -142,7 +142,7 @@ const ServicesSection = () => {
                         ?.title
                     }
                   </h3>
-                  <div className="flex-1 h-px bg-gradient-to-r from-white/20 to-transparent ml-4"></div>
+                  <div className="flex-1 h-px bg-gradient-to-r from-[#e6d8c3]/20 to-transparent ml-4"></div>
                 </div>
 
                 <div
@@ -181,7 +181,7 @@ const ServicesSection = () => {
                         <div
                           key={index}
                           onClick={() => handleImageClick(image)}
-                          className={`${randomHeight} relative overflow-hidden rounded-xl cursor-pointer group hover:scale-105 transition-all duration-500 shadow-lg hover:shadow-2xl border border-white/5 break-inside-avoid mb-6`}
+                          className={`${randomHeight} relative overflow-hidden rounded-xl cursor-pointer group hover:scale-105 transition-all duration-500 shadow-lg hover:shadow-2xl border border-[#5d866c]/5 break-inside-avoid mb-6`}
                         >
                           <Image
                             src={image}
@@ -202,9 +202,9 @@ const ServicesSection = () => {
             ) : (
               <div className="flex items-center justify-center h-96">
                 <div className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-6 bg-white/5 rounded-full flex items-center justify-center">
+                  <div className="w-16 h-16 mx-auto mb-6 bg-[#c2a68c]/5 rounded-full flex items-center justify-center">
                     <svg
-                      className="w-8 h-8 text-gray-400"
+                      className="w-8 h-8 text-[#e6d8c3]"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -217,7 +217,7 @@ const ServicesSection = () => {
                       />
                     </svg>
                   </div>
-                  <p className="text-gray-400 text-lg font-light tracking-wide">
+                  <p className="text-[#e6d8c3] text-lg font-light tracking-wide">
                     Selecciona una categoría para ver el portfolio
                   </p>
                 </div>

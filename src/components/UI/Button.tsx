@@ -15,13 +15,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseStyles =
-      "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:pointer-events-none";
+      "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[#c2a68c] focus:ring-offset-2 focus:ring-offset-[#7d6b59] disabled:opacity-50 disabled:pointer-events-none";
 
     const variants = {
-      primary: "bg-white text-black hover:bg-gray-200",
-      secondary: "bg-gray-800 text-white hover:bg-gray-700",
+      primary: "bg-[#c2a68c] text-black hover:bg-[#e6d8c3]",
+      secondary: "bg-[#5d866c] text-white hover:bg-[#5d866c]/80",
       outline:
-        "border-2 border-white text-white hover:bg-white hover:text-black",
+        "border-2 border-[#e6d8c3] text-[#e6d8c3] hover:bg-[#c2a68c] hover:text-black",
     };
 
     const sizes = {

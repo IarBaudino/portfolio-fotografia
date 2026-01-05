@@ -36,7 +36,7 @@ const ContactFormSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Contáctanos
           </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          <p className="text-xl text-[#e6d8c3] max-w-2xl mx-auto">
             ¿Tienes un proyecto en mente? Cuéntanos sobre él y te ayudaremos a
             hacerlo realidad.
           </p>
@@ -47,7 +47,7 @@ const ContactFormSection = () => {
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-300 mb-2"
+                className="block text-sm font-medium text-[#e6d8c3] mb-2"
               >
                 Nombre completo *
               </label>
@@ -58,7 +58,7 @@ const ContactFormSection = () => {
                 required
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent bg-gray-800 text-white placeholder-gray-400"
+                className="w-full px-4 py-3 border border-[#5d866c]/40 rounded-lg focus:ring-2 focus:ring-[#c2a68c] focus:border-transparent bg-gray-900 text-white placeholder-[#e6d8c3]"
                 placeholder="Tu nombre"
               />
             </div>
@@ -66,7 +66,7 @@ const ContactFormSection = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-300 mb-2"
+                className="block text-sm font-medium text-[#e6d8c3] mb-2"
               >
                 Email *
               </label>
@@ -77,7 +77,7 @@ const ContactFormSection = () => {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent bg-gray-800 text-white placeholder-gray-400"
+                className="w-full px-4 py-3 border border-[#5d866c]/40 rounded-lg focus:ring-2 focus:ring-[#c2a68c] focus:border-transparent bg-gray-900 text-white placeholder-[#e6d8c3]"
                 placeholder="tu@email.com"
               />
             </div>
@@ -86,7 +86,7 @@ const ContactFormSection = () => {
           <div>
             <label
               htmlFor="phone"
-              className="block text-sm font-medium text-gray-300 mb-2"
+              className="block text-sm font-medium text-[#e6d8c3] mb-2"
             >
               Teléfono
             </label>
@@ -96,7 +96,7 @@ const ContactFormSection = () => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent bg-gray-800 text-white placeholder-gray-400"
+              className="w-full px-4 py-3 border border-[#5d866c]/40 rounded-lg focus:ring-2 focus:ring-[#c2a68c] focus:border-transparent bg-gray-900 text-white placeholder-[#e6d8c3]"
               placeholder="+54 9 11 1234-5678"
             />
           </div>
@@ -104,7 +104,7 @@ const ContactFormSection = () => {
           <div>
             <label
               htmlFor="message"
-              className="block text-sm font-medium text-gray-300 mb-2"
+              className="block text-sm font-medium text-[#e6d8c3] mb-2"
             >
               Mensaje *
             </label>
@@ -115,7 +115,7 @@ const ContactFormSection = () => {
               rows={6}
               value={formData.message}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent bg-gray-800 text-white placeholder-gray-400"
+              className="w-full px-4 py-3 border border-[#5d866c]/40 rounded-lg focus:ring-2 focus:ring-[#c2a68c] focus:border-transparent bg-gray-900 text-white placeholder-[#e6d8c3]"
               placeholder="Cuéntanos sobre tu proyecto..."
             />
           </div>
@@ -123,7 +123,7 @@ const ContactFormSection = () => {
           <div className="text-center">
             <button
               type="submit"
-              className="px-8 py-4 bg-white text-black hover:bg-gray-200 transition-colors duration-300 rounded-lg"
+              className="px-8 py-4 bg-[#c2a68c] text-black hover:bg-[#e6d8c3] transition-colors duration-300 rounded-lg"
             >
               Enviar Mensaje
             </button>

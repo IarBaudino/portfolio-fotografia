@@ -6,14 +6,14 @@ import { SITE_CONFIG, SOCIAL_LINKS } from "@/constants";
 
 const Footer = () => {
   return (
-    <footer className="bg-black py-12 border-t border-gray-800">
+    <footer className="bg-black py-12 border-t border-[#5d866c]/30">
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-8 items-center">
           {/* Logo and Info */}
           <div className="text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start space-x-3 mb-4">
               <Image
-                src="/logo.png"
+                src="/logo-blanco.png"
                 alt="YIB Photography"
                 width={60}
                 height={60}
@@ -23,13 +23,13 @@ const Footer = () => {
                 YIB Photography
               </span>
             </div>
-            <p className="text-gray-400 text-sm">{SITE_CONFIG.description}</p>
+            <p className="text-[#e6d8c3] text-sm">{SITE_CONFIG.description}</p>
           </div>
 
           {/* Contact Info */}
           <div className="text-center">
             <h3 className="text-white font-semibold mb-4">Contacto</h3>
-            <div className="space-y-2 text-gray-400 text-sm">
+            <div className="space-y-2 text-[#e6d8c3] text-sm">
               <p>{SITE_CONFIG.contact.email}</p>
               <p>{SITE_CONFIG.contact.phone}</p>
               <p>{SITE_CONFIG.contact.address}</p>
@@ -44,7 +44,7 @@ const Footer = () => {
                 href="https://www.instagram.com/yib.ph?igsh=MTcxY2JteDVpbGpqOA=="
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors duration-300"
+                className="text-[#e6d8c3] hover:text-white transition-colors duration-300"
                 title="Instagram"
               >
                 <svg
@@ -59,7 +59,7 @@ const Footer = () => {
                 href="https://wa.me/549290115502553"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors duration-300"
+                className="text-[#e6d8c3] hover:text-white transition-colors duration-300"
                 title="WhatsApp"
               >
                 <svg
@@ -74,7 +74,7 @@ const Footer = () => {
                 href="https://www.iarabaudinodev.com.ar/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors duration-300"
+                className="text-[#e6d8c3] hover:text-white transition-colors duration-300"
                 title="Desarrollo Web"
               >
                 <svg
@@ -95,8 +95,8 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-          <p className="text-gray-500 text-sm">
+        <div className="border-t border-[#5d866c] mt-8 pt-8 text-center">
+          <p className="text-[#e6d8c3] text-sm">
             © 2025 YIB Photography. Todos los derechos reservados.
           </p>
         </div>

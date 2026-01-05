@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Navigation />
-      <main className="lg:pl-20">
+      <main>
         <section id="home">
           <HeroSection />
         </section>
