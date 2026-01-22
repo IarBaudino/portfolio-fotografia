@@ -6,9 +6,6 @@ import Image from "next/image";
 const HeroSection = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [slideDirection, setSlideDirection] = useState<"left" | "right">(
-    "right"
-  );
 
   const backgroundImages = [
     "/quince (1).jpg",
@@ -22,7 +19,6 @@ const HeroSection = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setIsTransitioning(true);
-      setSlideDirection((prev) => (prev === "right" ? "left" : "right"));
       setTimeout(() => {
         setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
         setTimeout(() => {
@@ -35,18 +31,18 @@ const HeroSection = () => {
   }, [backgroundImages.length]);
 
   return (
-    <section className="relative min-h-screen flex overflow-hidden">
+    <section className="relative min-h-screen flex overflow-hidden z-40">
       {/* Carousel lado derecho */}
-      <div className="absolute inset-0 z-0 flex">
+      <div className="absolute inset-0 z-10 flex">
         <div className="w-0 md:w-1/2"></div>
-        <div className="relative w-full md:w-1/2 min-h-screen">
+        <div className="relative w-full md:w-1/2 h-screen">
           {backgroundImages.map((image, index) => {
             const isActive = index === currentImageIndex;
 
             return (
               <div
                 key={index}
-                className={`absolute inset-0 transition-opacity duration-800 min-h-screen ${
+                className={`absolute inset-0 transition-opacity duration-800 ${
                   isActive
                     ? isTransitioning
                       ? "opacity-0"
@@ -66,13 +62,17 @@ const HeroSection = () => {
               </div>
             );
           })}
-          {/* Fade gradient hacia el centro */}
+          {/* Fade gradient hacia el centro (lateral) */}
           <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/50 to-black z-10"></div>
+          {/* Fade hacia abajo para fundirse con AboutUs */}
+          <div className="absolute bottom-0 inset-x-0 h-96 bg-gradient-to-b from-transparent via-transparent via-40% via-[#3a5744]/20 via-60% to-[#3a5744] z-20"></div>
         </div>
       </div>
 
       {/* Fondo sólido lado izquierdo con contenido */}
       <div className="relative z-20 w-full md:w-1/2 bg-black flex items-center justify-center min-h-screen">
+        {/* Fade hacia abajo para fundirse con AboutUs */}
+        <div className="absolute bottom-0 inset-x-0 h-96 bg-gradient-to-b from-transparent via-transparent via-40% via-[#3a5744]/20 via-60% to-[#3a5744] z-0"></div>
         <div className="text-center space-y-8 px-4 py-20">
           <div className="flex justify-center mb-8">
             <Image

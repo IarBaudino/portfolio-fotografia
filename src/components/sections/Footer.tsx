@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { SITE_CONFIG, SOCIAL_LINKS } from "@/constants";
+import { SITE_CONFIG } from "@/constants";
 
 const Footer = () => {
   return (
@@ -19,7 +19,7 @@ const Footer = () => {
                 height={60}
                 className="rounded-lg object-cover"
               />
-              <span className="text-white font-bold text-xl">
+              <span className="text-[#e6d8c3] font-bold text-xl">
                 YIB Photography
               </span>
             </div>
@@ -28,7 +28,7 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div className="text-center">
-            <h3 className="text-white font-semibold mb-4">Contacto</h3>
+            <h3 className="text-[#e6d8c3] font-semibold mb-4">Contacto</h3>
             <div className="space-y-2 text-[#e6d8c3] text-sm">
               <p>{SITE_CONFIG.contact.email}</p>
               <p>{SITE_CONFIG.contact.phone}</p>
@@ -38,7 +38,7 @@ const Footer = () => {
 
           {/* Social Links */}
           <div className="text-center md:text-right">
-            <h3 className="text-white font-semibold mb-4">Seguime</h3>
+            <h3 className="text-[#e6d8c3] font-semibold mb-4">Seguime</h3>
             <div className="flex justify-center md:justify-end space-x-6">
               <a
                 href="https://www.instagram.com/yib.ph?igsh=MTcxY2JteDVpbGpqOA=="

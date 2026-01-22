@@ -72,12 +72,12 @@ const ServicesSection = () => {
   return (
     <section className="relative py-20">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-gray-900 z-0"></div>
+      <div className="absolute inset-0 bg-[#3a5744] z-0"></div>
 
       <div className="relative z-10">
         {/* Título centrado de la sección */}
         <div className="text-center mb-20">
-          <h2 className="text-5xl font-thin text-white tracking-wider mb-4">
+          <h2 className="text-5xl font-thin text-[#e6d8c3] tracking-wider mb-4">
             PORTFOLIO
           </h2>
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-[#e6d8c3]/30 to-transparent mx-auto"></div>
@@ -95,8 +95,8 @@ const ServicesSection = () => {
                     onMouseLeave={() => setHoveredCategory(null)}
                     className={`w-full text-left py-5 px-6 transition-all duration-500 group-hover:bg-[#c2a68c]/5 rounded-lg ${
                       selectedCategory === category.id
-                        ? "text-white bg-[#c2a68c]/10 border-l-4 border-[#c2a68c] shadow-lg"
-                        : "text-[#e6d8c3] hover:text-white hover:bg-[#c2a68c]/5 hover:border-l-4 hover:border-[#5d866c]"
+                        ? "text-[#e6d8c3] bg-[#c2a68c]/10 border-l-4 border-[#c2a68c] shadow-lg"
+                        : "text-[#c2a68c] hover:text-[#e6d8c3] hover:bg-[#c2a68c]/5 hover:border-l-4 hover:border-[#5d866c]"
                     }`}
                   >
                     <span className="text-lg font-light tracking-wide">

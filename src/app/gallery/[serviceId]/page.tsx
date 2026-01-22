@@ -3,7 +3,6 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 
 interface GalleryPhoto {
   id: string;

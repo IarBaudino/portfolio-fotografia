@@ -28,12 +28,12 @@ const ContactFormSection = () => {
   };
 
   return (
-    <section className="relative py-20 bg-black">
+    <section className="relative py-20 bg-[#3a5744]">
       {/* Gradient transition from previous section */}
-      <div className="absolute top-0 left-0 right-0 h-80 bg-gradient-to-b from-gray-900 via-gray-900/80 to-transparent z-0"></div>
+      <div className="absolute top-0 left-0 right-0 h-80 bg-gradient-to-b from-[#3a5744] via-[#3a5744]/80 to-transparent z-0"></div>
       <div className="max-w-4xl mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#e6d8c3] mb-6">
             Contáctanos
           </h2>
           <p className="text-xl text-[#e6d8c3] max-w-2xl mx-auto">
