@@ -83,23 +83,23 @@ const ServicesSection = () => {
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-[#e6d8c3]/30 to-transparent mx-auto"></div>
         </div>
 
-        <div className="flex flex-col md:flex-row">
-          {/* Sidebar de categorías */}
-          <div className="w-full md:w-80 px-4 md:pl-16 md:pr-8 mb-8 md:mb-0">
-            <div className="space-y-1 flex md:flex-col flex-row overflow-x-auto md:overflow-x-visible gap-2 md:gap-0 pb-2 md:pb-0">
+        <div className="flex flex-row">
+          {/* Sidebar de categorías - siempre visible, más pequeño en mobile */}
+          <div className="w-48 md:w-80 pl-4 md:pl-16 pr-2 md:pr-8 flex-shrink-0">
+            <div className="space-y-1">
               {categories.map((category) => (
-                <div key={category.id} className="relative group flex-shrink-0">
+                <div key={category.id} className="relative group">
                   <button
                     onClick={() => handleCategoryClick(category.id)}
                     onMouseEnter={() => setHoveredCategory(category.id)}
                     onMouseLeave={() => setHoveredCategory(null)}
-                    className={`w-full text-left py-4 md:py-5 px-4 md:px-6 transition-all duration-500 group-hover:bg-[#c2a68c]/5 rounded-lg ${
+                    className={`w-full text-left py-3 md:py-5 px-2 md:px-6 transition-all duration-500 group-hover:bg-[#c2a68c]/5 rounded-lg ${
                       selectedCategory === category.id
                         ? "text-[#e6d8c3] bg-[#c2a68c]/10 border-l-4 border-[#c2a68c] shadow-lg"
                         : "text-[#c2a68c] hover:text-[#e6d8c3] hover:bg-[#c2a68c]/5 hover:border-l-4 hover:border-[#5d866c]"
                     }`}
                   >
-                    <span className="text-base md:text-lg font-light tracking-wide whitespace-nowrap">
+                    <span className="text-xs md:text-lg font-light tracking-wide">
                       {category.title}
                     </span>
                   </button>
@@ -132,21 +132,21 @@ const ServicesSection = () => {
           </div>
 
           {/* Área principal de galería */}
-          <div className="flex-1 px-4 md:pr-6">
+          <div className="flex-1 pr-2 md:pr-6">
             {selectedCategory ? (
               <div>
-                <div className="flex items-center space-x-3 mb-6 md:mb-10">
-                  <h3 className="text-2xl md:text-3xl font-thin text-white tracking-wide">
+                <div className="flex items-center space-x-2 md:space-x-3 mb-4 md:mb-10">
+                  <h3 className="text-lg md:text-3xl font-thin text-white tracking-wide">
                     {
                       categories.find((cat) => cat.id === selectedCategory)
                         ?.title
                     }
                   </h3>
-                  <div className="flex-1 h-px bg-gradient-to-r from-[#e6d8c3]/20 to-transparent ml-4"></div>
+                  <div className="flex-1 h-px bg-gradient-to-r from-[#e6d8c3]/20 to-transparent ml-2 md:ml-4"></div>
                 </div>
 
                 <div
-                  className={`columns-1 sm:columns-2 md:columns-2 lg:columns-3 xl:columns-4 gap-4 md:gap-6 space-y-4 md:space-y-6 ${
+                  className={`columns-2 md:columns-2 lg:columns-3 xl:columns-4 gap-2 md:gap-6 space-y-2 md:space-y-6 ${
                     selectedCategory &&
                     hoveredCategory &&
                     hoveredCategory !== selectedCategory
@@ -159,20 +159,20 @@ const ServicesSection = () => {
                     ?.allImages.map((image, index) => {
                       // Generar alturas verdaderamente aleatorias para efecto Pinterest
                       const heights = [
-                        "h-48",
-                        "h-56",
-                        "h-64",
-                        "h-72",
-                        "h-80",
-                        "h-96",
-                        "h-[14rem]",
-                        "h-[16rem]",
-                        "h-[18rem]",
-                        "h-[20rem]",
-                        "h-[22rem]",
-                        "h-[24rem]",
-                        "h-[26rem]",
-                        "h-[28rem]",
+                        "h-32 md:h-48",
+                        "h-36 md:h-56",
+                        "h-40 md:h-64",
+                        "h-44 md:h-72",
+                        "h-48 md:h-80",
+                        "h-52 md:h-96",
+                        "h-56 md:h-[14rem]",
+                        "h-60 md:h-[16rem]",
+                        "h-64 md:h-[18rem]",
+                        "h-68 md:h-[20rem]",
+                        "h-72 md:h-[22rem]",
+                        "h-76 md:h-[24rem]",
+                        "h-80 md:h-[26rem]",
+                        "h-84 md:h-[28rem]",
                       ];
                       const randomHeight =
                         heights[Math.floor(Math.random() * heights.length)];
@@ -181,7 +181,7 @@ const ServicesSection = () => {
                         <div
                           key={index}
                           onClick={() => handleImageClick(image)}
-                          className={`${randomHeight} relative overflow-hidden rounded-xl cursor-pointer group hover:scale-105 transition-all duration-500 shadow-lg hover:shadow-2xl border border-[#5d866c]/5 break-inside-avoid mb-6`}
+                          className={`${randomHeight} relative overflow-hidden rounded-lg md:rounded-xl cursor-pointer group hover:scale-105 transition-all duration-500 shadow-lg hover:shadow-2xl border border-[#5d866c]/5 break-inside-avoid mb-2 md:mb-6`}
                         >
                           <Image
                             src={image}
