@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -13,6 +13,12 @@ export const metadata: Metadata = {
   title: "YIB Photography - Portfolio Profesional",
   description:
     "Fotografía profesional especializada en diferentes tipos de servicios. Capturando momentos, creando recuerdos.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({

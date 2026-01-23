@@ -76,38 +76,38 @@ const ServicesSection = () => {
 
       <div className="relative z-10">
         {/* Título centrado de la sección */}
-        <div className="text-center mb-20">
-          <h2 className="text-5xl font-thin text-[#e6d8c3] tracking-wider mb-4">
+        <div className="text-center mb-12 md:mb-20 px-4">
+          <h2 className="text-3xl md:text-5xl font-thin text-[#e6d8c3] tracking-wider mb-4">
             PORTFOLIO
           </h2>
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-[#e6d8c3]/30 to-transparent mx-auto"></div>
         </div>
 
-        <div className="flex">
+        <div className="flex flex-col md:flex-row">
           {/* Sidebar de categorías */}
-          <div className="w-80 pl-16 pr-8">
-            <div className="space-y-1">
+          <div className="w-full md:w-80 px-4 md:pl-16 md:pr-8 mb-8 md:mb-0">
+            <div className="space-y-1 flex md:flex-col flex-row overflow-x-auto md:overflow-x-visible gap-2 md:gap-0 pb-2 md:pb-0">
               {categories.map((category) => (
-                <div key={category.id} className="relative group">
+                <div key={category.id} className="relative group flex-shrink-0">
                   <button
                     onClick={() => handleCategoryClick(category.id)}
                     onMouseEnter={() => setHoveredCategory(category.id)}
                     onMouseLeave={() => setHoveredCategory(null)}
-                    className={`w-full text-left py-5 px-6 transition-all duration-500 group-hover:bg-[#c2a68c]/5 rounded-lg ${
+                    className={`w-full text-left py-4 md:py-5 px-4 md:px-6 transition-all duration-500 group-hover:bg-[#c2a68c]/5 rounded-lg ${
                       selectedCategory === category.id
                         ? "text-[#e6d8c3] bg-[#c2a68c]/10 border-l-4 border-[#c2a68c] shadow-lg"
                         : "text-[#c2a68c] hover:text-[#e6d8c3] hover:bg-[#c2a68c]/5 hover:border-l-4 hover:border-[#5d866c]"
                     }`}
                   >
-                    <span className="text-lg font-light tracking-wide">
+                    <span className="text-base md:text-lg font-light tracking-wide whitespace-nowrap">
                       {category.title}
                     </span>
                   </button>
 
-                  {/* Preview de imágenes al hacer hover */}
+                  {/* Preview de imágenes al hacer hover - solo en desktop */}
                   {hoveredCategory === category.id &&
                     selectedCategory !== category.id && (
-                      <div className="absolute left-full top-0 ml-6 w-56 h-36 bg-black/95 backdrop-blur-md rounded-xl p-3 z-20 shadow-2xl border border-[#5d866c]/20">
+                      <div className="hidden md:block absolute left-full top-0 ml-6 w-56 h-36 bg-black/95 backdrop-blur-md rounded-xl p-3 z-20 shadow-2xl border border-[#5d866c]/20">
                         <div className="grid grid-cols-3 gap-2 h-full">
                           {category.previewImages.map((image, index) => (
                             <div
@@ -132,11 +132,11 @@ const ServicesSection = () => {
           </div>
 
           {/* Área principal de galería */}
-          <div className="flex-1 pr-6">
+          <div className="flex-1 px-4 md:pr-6">
             {selectedCategory ? (
               <div>
-                <div className="flex items-center space-x-3 mb-10">
-                  <h3 className="text-3xl font-thin text-white tracking-wide">
+                <div className="flex items-center space-x-3 mb-6 md:mb-10">
+                  <h3 className="text-2xl md:text-3xl font-thin text-white tracking-wide">
                     {
                       categories.find((cat) => cat.id === selectedCategory)
                         ?.title
@@ -146,7 +146,7 @@ const ServicesSection = () => {
                 </div>
 
                 <div
-                  className={`columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6 ${
+                  className={`columns-1 sm:columns-2 md:columns-2 lg:columns-3 xl:columns-4 gap-4 md:gap-6 space-y-4 md:space-y-6 ${
                     selectedCategory &&
                     hoveredCategory &&
                     hoveredCategory !== selectedCategory

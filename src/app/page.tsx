@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Navigation />
-      <main>
+      <main className="overflow-x-hidden">
         <section id="home">
           <HeroSection />
         </section>

@@ -28,15 +28,15 @@ const ContactFormSection = () => {
   };
 
   return (
-    <section className="relative py-20 bg-[#3a5744]">
+    <section className="relative py-12 md:py-20 bg-[#3a5744]">
       {/* Gradient transition from previous section */}
-      <div className="absolute top-0 left-0 right-0 h-80 bg-gradient-to-b from-[#3a5744] via-[#3a5744]/80 to-transparent z-0"></div>
-      <div className="max-w-4xl mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#e6d8c3] mb-6">
+      <div className="absolute top-0 left-0 right-0 h-48 md:h-80 bg-gradient-to-b from-[#3a5744] via-[#3a5744]/80 to-transparent z-0"></div>
+      <div className="max-w-4xl mx-auto px-4 md:px-6 relative z-10">
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold text-[#e6d8c3] mb-4 md:mb-6">
             Contáctanos
           </h2>
-          <p className="text-xl text-[#e6d8c3] max-w-2xl mx-auto">
+          <p className="text-base md:text-xl text-[#e6d8c3] max-w-2xl mx-auto px-4">
             ¿Tienes un proyecto en mente? Cuéntanos sobre él y te ayudaremos a
             hacerlo realidad.
           </p>

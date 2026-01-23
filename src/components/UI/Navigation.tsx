@@ -35,14 +35,14 @@ const Navigation = () => {
         : "bg-transparent border-b border-transparent"
     }`}>
       <div className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16 relative">
+        <div className="flex items-center justify-between h-14 md:h-16 relative">
           {/* Left Navigation Links (Desktop) */}
           <div className="hidden md:flex items-center space-x-8 flex-1">
             {leftLinks.map((item) => (
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className="text-[#e6d8c3] hover:text-white transition-colors duration-300 font-medium"
+                className="text-[#e6d8c3] hover:text-white transition-colors duration-300 font-medium text-sm md:text-base"
               >
                 {item.name}
               </button>
@@ -51,7 +51,7 @@ const Navigation = () => {
 
           {/* Logo - Centered */}
           <div className="absolute left-1/2 transform -translate-x-1/2">
-            <span className="text-white font-bold text-lg">YEKA</span>
+            <span className="text-white font-bold text-base md:text-lg">YEKA</span>
           </div>
 
           {/* Right Navigation Links (Desktop) */}
@@ -60,7 +60,7 @@ const Navigation = () => {
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className="text-[#e6d8c3] hover:text-white transition-colors duration-300 font-medium"
+                className="text-[#e6d8c3] hover:text-white transition-colors duration-300 font-medium text-sm md:text-base"
               >
                 {item.name}
               </button>
@@ -70,7 +70,7 @@ const Navigation = () => {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden text-white p-2 ml-auto"
+            className="md:hidden text-white p-2 z-10"
           >
             <svg
               className="w-6 h-6"
