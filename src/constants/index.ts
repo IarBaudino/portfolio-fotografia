@@ -1,10 +1,11 @@
 // Site configuration
 export const SITE_CONFIG = {
-  name: "YIB Photography",
-  slogan: "Fotografia a tu medida",
-  description: "Fotografía",
+  name: "YEKA Producciones",
+  slogan: "Capturando momentos únicos, creando recuerdos eternos",
+  description:
+    "Fotografía profesional especializada en casamientos, cumpleaños y eventos corporativos. Servicio de excelencia en Buenos Aires con atención personalizada y resultados excepcionales.",
   contact: {
-    email: "iara.baudino.dev@gmail.com",
+    email: "produccionesyeka@gmail.com",
     phone: "+54 9 2901 15502553",
     address: "Buenos Aires, Argentina",
   },
@@ -17,7 +18,6 @@ export const SERVICES = [
     title: "Foto Producto",
     description:
       "Fotografía profesional para catálogos, e-commerce y publicidad.",
-    icon: "📸",
     features: [
       "Iluminación profesional",
       "Edición avanzada",
@@ -28,7 +28,6 @@ export const SERVICES = [
     id: "books",
     title: "Books",
     description: "Sesiones fotográficas profesionales para modelos y artistas.",
-    icon: "📖",
     features: [
       "Sesión de estudio",
       "Maquillaje profesional",
@@ -41,7 +40,6 @@ export const SERVICES = [
     title: "Polas",
     description:
       "Fotografía de estudio para redes sociales y contenido digital.",
-    icon: "✨",
     features: [
       "Fotos para Instagram",
       "Edición para redes",
@@ -54,7 +52,6 @@ export const SERVICES = [
     title: "Gastronomía",
     description:
       "Fotografía culinaria para restaurantes, chefs y publicaciones.",
-    icon: "🍽️",
     features: [
       "Fotografía de platos",
       "Ambiente de restaurante",
@@ -65,12 +62,15 @@ export const SERVICES = [
   {
     id: "eventos",
     title: "Eventos",
-    description: "Cobertura fotográfica de eventos sociales y corporativos.",
-    icon: "🎉",
+    description:
+      "Cobertura fotográfica profesional de casamientos, cumpleaños, eventos corporativos y celebraciones. Capturamos cada momento especial con estilo y sensibilidad.",
     features: [
-      "Cobertura completa",
-      "Fotos espontáneas",
-      "Retratos de invitados",
+      "Casamientos y bodas",
+      "Cumpleaños y celebraciones",
+      "Eventos corporativos",
+      "Cobertura completa del evento",
+      "Fotos espontáneas y retratos",
+      "Entrega rápida y profesional",
     ],
   },
 ];
@@ -78,8 +78,9 @@ export const SERVICES = [
 // Navigation
 export const NAVIGATION = [
   { name: "Inicio", href: "#home" },
-  { name: "Nosotros", href: "#about" },
+  { name: "Nosotros", href: "/sobre-nosotros" },
   { name: "Portfolio", href: "#services" },
+  { name: "Testimonios", href: "/testimonios" },
   { name: "Contacto", href: "#contact" },
 ];
 
@@ -87,13 +88,11 @@ export const NAVIGATION = [
 export const SOCIAL_LINKS = [
   {
     name: "Instagram",
-    url: "https://www.instagram.com/yib.ph?igsh=MTcxY2JteDVpbGpqOA==",
-    icon: "📷",
+    url: "https://www.instagram.com/yekaproducciones",
   },
-  { name: "WhatsApp", url: "https://wa.me/549290115502553", icon: "💬" },
+  { name: "WhatsApp", url: "https://wa.me/549290115502553" },
   {
     name: "Desarrollo Web",
     url: "https://www.iarabaudinodev.com.ar/",
-    icon: "💻",
   },
 ];

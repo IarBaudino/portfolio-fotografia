@@ -7,6 +7,8 @@ const ContactFormSection = () => {
     name: "",
     email: "",
     phone: "",
+    eventType: "",
+    eventDate: "",
     message: "",
   });
 
@@ -29,16 +31,19 @@ const ContactFormSection = () => {
 
   return (
     <section className="relative py-12 md:py-20 bg-[#3a5744]">
-      {/* Gradient transition from previous section */}
-      <div className="absolute top-0 left-0 right-0 h-48 md:h-80 bg-gradient-to-b from-[#3a5744] via-[#3a5744]/80 to-transparent z-0"></div>
+      {/* Fade superior desde ServicesSection */}
+      <div className="absolute top-0 left-0 right-0 h-24 md:h-96 bg-gradient-to-b from-[#3a5744] via-[#3a5744]/80 via-60% via-[#3a5744]/40 via-40% to-transparent z-0"></div>
+      {/* Fade inferior hacia Footer */}
+      <div className="absolute bottom-0 inset-x-0 h-24 md:h-96 bg-gradient-to-t from-black via-black/90 via-60% via-black/40 via-40% to-transparent z-0"></div>
       <div className="max-w-4xl mx-auto px-4 md:px-6 relative z-10">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-[#e6d8c3] mb-4 md:mb-6">
             Contáctanos
           </h2>
           <p className="text-base md:text-xl text-[#e6d8c3] max-w-2xl mx-auto px-4">
-            ¿Tienes un proyecto en mente? Cuéntanos sobre él y te ayudaremos a
-            hacerlo realidad.
+            ¿Planeas un casamiento, cumpleaños o evento corporativo? Solicita tu
+            presupuesto gratuito y asegura la cobertura fotográfica perfecta para
+            tu celebración.
           </p>
         </div>
 
@@ -88,12 +93,13 @@ const ContactFormSection = () => {
               htmlFor="phone"
               className="block text-sm font-medium text-[#e6d8c3] mb-2"
             >
-              Teléfono
+              Teléfono *
             </label>
             <input
               type="tel"
               id="phone"
               name="phone"
+              required
               value={formData.phone}
               onChange={handleChange}
               className="w-full px-4 py-3 border border-[#5d866c]/40 rounded-lg focus:ring-2 focus:ring-[#c2a68c] focus:border-transparent bg-gray-900 text-white placeholder-[#e6d8c3]"
@@ -101,12 +107,55 @@ const ContactFormSection = () => {
             />
           </div>
 
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <label
+                htmlFor="eventType"
+                className="block text-sm font-medium text-[#e6d8c3] mb-2"
+              >
+                Tipo de Evento *
+              </label>
+              <select
+                id="eventType"
+                name="eventType"
+                required
+                value={formData.eventType}
+                onChange={handleChange}
+                className="w-full px-4 py-3 border border-[#5d866c]/40 rounded-lg focus:ring-2 focus:ring-[#c2a68c] focus:border-transparent bg-gray-900 text-white"
+              >
+                <option value="">Selecciona un tipo</option>
+                <option value="casamiento">Casamiento / Boda</option>
+                <option value="cumpleanos">Cumpleaños</option>
+                <option value="corporativo">Evento Corporativo</option>
+                <option value="quince">Quinceañero</option>
+                <option value="otro">Otro evento</option>
+              </select>
+            </div>
+
+            <div>
+              <label
+                htmlFor="eventDate"
+                className="block text-sm font-medium text-[#e6d8c3] mb-2"
+              >
+                Fecha del Evento
+              </label>
+              <input
+                type="date"
+                id="eventDate"
+                name="eventDate"
+                value={formData.eventDate}
+                onChange={handleChange}
+                className="w-full px-4 py-3 border border-[#5d866c]/40 rounded-lg focus:ring-2 focus:ring-[#c2a68c] focus:border-transparent bg-gray-900 text-white"
+              />
+            </div>
+          </div>
+
           <div>
             <label
               htmlFor="message"
               className="block text-sm font-medium text-[#e6d8c3] mb-2"
             >
-              Mensaje *
+              Cuéntanos sobre tu evento *
             </label>
             <textarea
               id="message"
@@ -116,16 +165,16 @@ const ContactFormSection = () => {
               value={formData.message}
               onChange={handleChange}
               className="w-full px-4 py-3 border border-[#5d866c]/40 rounded-lg focus:ring-2 focus:ring-[#c2a68c] focus:border-transparent bg-gray-900 text-white placeholder-[#e6d8c3]"
-              placeholder="Cuéntanos sobre tu proyecto..."
+              placeholder="Detalles del evento, cantidad de invitados, ubicación, necesidades especiales..."
             />
           </div>
 
           <div className="text-center">
             <button
               type="submit"
-              className="px-8 py-4 bg-[#c2a68c] text-black hover:bg-[#e6d8c3] transition-colors duration-300 rounded-lg"
+              className="px-8 py-4 bg-[#c2a68c] text-black hover:bg-[#e6d8c3] transition-colors duration-300 rounded-lg font-semibold text-lg"
             >
-              Enviar Mensaje
+              Solicitar Presupuesto Gratuito
             </button>
           </div>
         </form>

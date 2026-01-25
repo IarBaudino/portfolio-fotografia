@@ -17,16 +17,43 @@ const Navigation = () => {
   }, []);
 
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "auto" });
-    }
     setIsMenuOpen(false);
+    
+    // Si es un enlace externo (empieza con /), navegar a esa página
+    if (href.startsWith("/")) {
+      window.location.href = href;
+      return;
+    }
+    
+    // Si es un hash (#), verificar si estamos en la página principal
+    if (href.startsWith("#")) {
+      // Si no estamos en la página principal, navegar primero
+      if (window.location.pathname !== "/") {
+        window.location.href = `/${href}`;
+        return;
+      }
+      
+      // Si estamos en la página principal, hacer scroll a la sección
+      // Usar setTimeout para asegurar que el DOM esté listo
+      setTimeout(() => {
+        const element = document.querySelector(href);
+        if (element) {
+          const navHeight = 64; // Altura aproximada del navbar
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+          
+          window.scrollTo({
+            top: Math.max(0, offsetPosition), // Asegurar que no sea negativo
+            behavior: "smooth"
+          });
+        }
+      }, 100);
+    }
   };
 
-  // Separar los enlaces: primeros dos a la izquierda, últimos dos a la derecha
+  // Separar los enlaces: primeros dos a la izquierda, últimos tres a la derecha
   const leftLinks = NAVIGATION.slice(0, 2); // Inicio y Nosotros
-  const rightLinks = NAVIGATION.slice(2); // Portfolio y Contacto
+  const rightLinks = NAVIGATION.slice(2); // Portfolio, Testimonios y Contacto
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -50,9 +77,20 @@ const Navigation = () => {
           </div>
 
           {/* Logo - Centered */}
-          <div className="absolute left-1/2 transform -translate-x-1/2">
-            <span className="text-white font-bold text-base md:text-lg">YEKA</span>
-          </div>
+          <button
+            onClick={() => {
+              if (window.location.pathname !== "/") {
+                window.location.href = "/";
+              } else {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
+            className="absolute left-1/2 transform -translate-x-1/2 cursor-pointer"
+          >
+            <span className="text-white font-bold text-base md:text-lg hover:text-[#c2a68c] transition-colors duration-300">
+              YEKA
+            </span>
+          </button>
 
           {/* Right Navigation Links (Desktop) */}
           <div className="hidden md:flex items-center space-x-8 flex-1 justify-end">
