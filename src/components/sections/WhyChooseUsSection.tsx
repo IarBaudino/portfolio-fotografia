@@ -39,7 +39,7 @@ const WhyChooseUsSection = () => {
   return (
     <section className="relative py-12 md:py-20 bg-black overflow-hidden">
       {/* Fade superior desde AboutUsSection (verde #3a5744) */}
-      <div className="absolute top-0 inset-x-0 h-24 md:h-96 bg-gradient-to-b from-[#3a5744] via-[#3a5744]/80 via-60% via-black/40 via-40% to-black z-0"></div>
+      <div className="absolute top-0 inset-x-0 h-24 md:h-96 bg-gradient-to-b from-[#3a5744] via-[#3a5744]/95 via-80% via-[#3a5744]/70 via-85% via-black/30 via-95% to-black z-0"></div>
       {/* Fade inferior */}
       <div className="absolute bottom-0 inset-x-0 h-24 md:h-96 bg-gradient-to-t from-black via-black/80 via-60% via-black/40 via-40% to-transparent z-0"></div>
       <div className="max-w-6xl mx-auto px-4 md:px-6 relative z-10">

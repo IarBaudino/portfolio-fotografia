@@ -11,7 +11,7 @@ const AboutUsSection = () => {
   }, []);
   
   return (
-    <section className="relative py-4 md:py-12 mt-0 overflow-hidden -mt-14 md:-mt-16 pt-[56px] md:pt-[64px]">
+    <section className="relative py-4 md:py-12 mt-0 -mt-14 md:-mt-16 pt-[56px] md:pt-[64px]">
       {/* Fades superiores solo en la página principal (con hero) */}
       {isMainPage && (
         <>
@@ -23,29 +23,25 @@ const AboutUsSection = () => {
         </>
       )}
       
-      {/* Background y fade superior cuando NO está en la página principal */}
+      {/* Background cuando NO está en la página principal - mismo estilo que la landing */}
       {!isMainPage && (
         <>
-          {/* Fondo negro desde el inicio del viewport (después del navbar) */}
-          <div className="absolute top-14 md:top-16 left-0 right-0 h-24 md:h-96 bg-black z-0"></div>
-          {/* Fade de negro (arriba) a verde (abajo) */}
-          <div className="absolute top-14 md:top-16 inset-x-0 h-24 md:h-96 bg-gradient-to-b from-black via-black/80 via-60% via-[#3a5744]/40 via-40% to-[#3a5744] z-0"></div>
-          {/* Background verde para el resto de la sección */}
-          <div className="absolute top-[152px] md:top-[448px] left-0 right-0 bottom-0 bg-[#3a5744] z-0"></div>
+          {/* Fade gradient desde arriba (fondo negro) - igual que la landing, empieza desde el viewport */}
+          <div className="absolute top-14 md:top-16 left-0 w-full h-24 md:h-96 bg-gradient-to-b from-black via-black/90 via-30% via-[#3a5744]/40 via-50% via-[#3a5744]/70 via-70% to-[#3a5744] z-0"></div>
+          {/* Fondo verde sólido para toda la sección - igual que la landing, empieza desde el comienzo de la página */}
+          <div className="absolute top-14 md:top-16 left-0 right-0 bottom-0 bg-[#3a5744] z-0 pt-24 md:pt-96"></div>
         </>
       )}
       
-      {/* Fade inferior hacia WhyChooseUsSection - diferente según la página */}
-      {isMainPage ? (
+      {/* Fade inferior hacia WhyChooseUsSection - solo en la página principal */}
+      {isMainPage && (
         <div className="absolute bottom-0 inset-x-0 h-24 md:h-96 bg-gradient-to-t from-black via-black/80 via-60% via-black/40 via-40% to-transparent z-0 pointer-events-none"></div>
-      ) : (
-        <div className="absolute bottom-0 inset-x-0 h-24 md:h-96 bg-gradient-to-t from-[#3a5744] via-[#3a5744]/80 via-60% via-black/40 via-40% to-black z-10 pointer-events-none"></div>
       )}
 
-      <div className="max-w-6xl mx-auto px-2 md:px-6 relative z-30 py-4 md:py-12">
-        <div className="relative flex flex-row items-center justify-center gap-2 md:gap-12">
+      <div className="max-w-6xl mx-auto px-2 md:px-6 relative z-20 py-4 md:py-12">
+        <div className="relative flex flex-row items-center justify-center gap-2 md:gap-12 z-30">
           {/* Imagen - visible en mobile también */}
-          <div className="w-auto z-10 flex-shrink-0 flex justify-center md:block">
+          <div className="w-auto flex-shrink-0 flex justify-center md:block relative z-30">
             <div className="relative w-32 md:w-64 h-auto aspect-[3/4] md:h-96">
               <Image
                 src="/about.jpg"
@@ -59,7 +55,7 @@ const AboutUsSection = () => {
           </div>
 
           {/* Texto - centrado verticalmente */}
-          <div className="relative z-20 w-auto md:w-auto md:flex-1 space-y-1 md:space-y-6 flex flex-col justify-center">
+          <div className="relative w-auto md:w-auto md:flex-1 space-y-1 md:space-y-6 flex flex-col justify-center z-30">
             <h2 className="text-3xl md:text-5xl font-bold text-[#e6d8c3] mb-6 md:mb-12 hidden"></h2>
             <div className="space-y-1 md:space-y-6">
               <p className="text-[10px] md:text-lg text-[#e6d8c3] leading-tight md:leading-relaxed">
