@@ -80,33 +80,89 @@ export default function AdminPage() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Aquí puedes agregar las funcionalidades del panel admin */}
-            <div className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-[#5d866c]/30 hover:border-[#c2a68c]/50 transition-all duration-300 hover:transform hover:scale-105">
-              <h2 className="text-xl font-semibold text-[#e6d8c3] mb-3">
-                Gestión de Contenido
-              </h2>
+            {/* Gestión de Galería */}
+            <button
+              onClick={() => router.push("/admin/gallery")}
+              className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-[#5d866c]/30 hover:border-[#c2a68c]/50 transition-all duration-300 hover:transform hover:scale-105 text-left cursor-pointer group"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="text-xl font-semibold text-[#e6d8c3] group-hover:text-white transition-colors">
+                  Galería
+                </h2>
+                <svg
+                  className="w-5 h-5 text-[#5d866c] group-hover:text-[#c2a68c] transition-colors"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </div>
+              <p className="text-[#e6d8c3]/70 text-sm leading-relaxed">
+                Gestiona las imágenes de la galería por servicio
+              </p>
+            </button>
+
+            {/* Gestión de Contenido */}
+            <button
+              onClick={() => router.push("/admin/content")}
+              className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-[#5d866c]/30 hover:border-[#c2a68c]/50 transition-all duration-300 hover:transform hover:scale-105 text-left cursor-pointer group"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="text-xl font-semibold text-[#e6d8c3] group-hover:text-white transition-colors">
+                  Gestión de Contenido
+                </h2>
+                <svg
+                  className="w-5 h-5 text-[#5d866c] group-hover:text-[#c2a68c] transition-colors"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </div>
               <p className="text-[#e6d8c3]/70 text-sm leading-relaxed">
                 Administra el contenido del sitio web
               </p>
-            </div>
+            </button>
 
-            <div className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-[#5d866c]/30 hover:border-[#c2a68c]/50 transition-all duration-300 hover:transform hover:scale-105">
-              <h2 className="text-xl font-semibold text-[#e6d8c3] mb-3">
-                Galería
-              </h2>
-              <p className="text-[#e6d8c3]/70 text-sm leading-relaxed">
-                Gestiona las imágenes de la galería
-              </p>
-            </div>
-
-            <div className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-[#5d866c]/30 hover:border-[#c2a68c]/50 transition-all duration-300 hover:transform hover:scale-105">
-              <h2 className="text-xl font-semibold text-[#e6d8c3] mb-3">
-                Configuración
-              </h2>
+            {/* Configuración */}
+            <button
+              onClick={() => router.push("/admin/settings")}
+              className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-[#5d866c]/30 hover:border-[#c2a68c]/50 transition-all duration-300 hover:transform hover:scale-105 text-left cursor-pointer group"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="text-xl font-semibold text-[#e6d8c3] group-hover:text-white transition-colors">
+                  Configuración
+                </h2>
+                <svg
+                  className="w-5 h-5 text-[#5d866c] group-hover:text-[#c2a68c] transition-colors"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </div>
               <p className="text-[#e6d8c3]/70 text-sm leading-relaxed">
                 Ajustes generales del sitio
               </p>
-            </div>
+            </button>
           </div>
         </div>
       </div>
