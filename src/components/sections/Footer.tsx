@@ -6,9 +6,9 @@ import { SITE_CONFIG } from "@/constants";
 
 const Footer = () => {
   return (
-    <footer className="relative bg-black py-4 md:py-6 border-t border-[#5d866c]/30 w-full overflow-hidden">
+    <footer className="relative bg-black py-4 md:py-6 border-t border-[#5d866c]/30 w-full overflow-hidden mb-0 pb-0" style={{ marginBottom: 0, paddingBottom: 0 }}>
       {/* Fade superior desde la sección anterior */}
-      <div className="absolute top-0 inset-x-0 h-24 md:h-96 bg-gradient-to-b from-transparent via-black/40 via-40% via-black/80 via-60% to-black z-0 pointer-events-none"></div>
+      <div className="absolute top-0 inset-x-0 h-24 md:h-96 bg-gradient-to-b from-transparent via-black/40 via-40% via-black/80 via-60% to-black z-0 pointer-events-none" style={{ maxHeight: '100%' }}></div>
       <div className="max-w-6xl mx-auto px-4 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4">
           {/* Logo and Info - más compacto */}
@@ -92,6 +92,12 @@ const Footer = () => {
           <p className="text-[#e6d8c3] text-xs md:text-sm">
             © 2025 YEKA Producciones. Todos los derechos reservados.
           </p>
+          <a
+            href="/admin/login"
+            className="text-[#5d866c] hover:text-[#c2a68c] transition-colors duration-300 text-[10px] mt-1 inline-block"
+          >
+            Admin
+          </a>
         </div>
       </div>
     </footer>
