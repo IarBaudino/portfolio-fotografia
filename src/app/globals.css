@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #3a5744;
-  --foreground: #e6d8c3;
+  --background: #111111;
+  --foreground: #ededed;
   --primary: #c2a68c;
-  --secondary: #5d866c;
-  --accent: #c2a68c;
+  --secondary: #3a3a3a;
+  --accent: #1f1f1f;
 }
 
 * {
@@ -24,7 +24,19 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family:
+    var(--font-inter),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif;
   font-weight: 300;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -192,7 +204,7 @@ body > *:last-child {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #5d866c;
+  background: #3a3a3a;
   border-radius: 6px;
 }
 

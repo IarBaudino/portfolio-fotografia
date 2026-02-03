@@ -14,7 +14,7 @@ export default function LoginPage() {
     // Agregar atributo al html y body para prevenir scroll
     document.documentElement.setAttribute("data-admin-page", "true");
     document.body.setAttribute("data-admin-page", "true");
-    
+
     return () => {
       // Limpiar al desmontar
       document.documentElement.removeAttribute("data-admin-page");
@@ -41,21 +41,21 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="admin-page-container flex flex-col bg-gradient-to-b from-black via-[#3a5744]/20 to-black overflow-hidden">
+    <div className="admin-page-container flex flex-col bg-gradient-to-b from-black via-[#1f1f1f]/40 to-black overflow-hidden">
       <div className="flex-1 flex items-center justify-center px-4 py-12 overflow-y-auto">
         <div className="w-full max-w-md">
-          <div className="bg-black/80 backdrop-blur-sm rounded-2xl p-8 md:p-10 border border-[#5d866c]/30 shadow-2xl">
+          <div className="bg-black/80 backdrop-blur-sm rounded-2xl p-8 md:p-10 border border-[#3a3a3a]/50 shadow-2xl">
             <div className="text-center mb-8">
-              <h1 className="text-3xl md:text-4xl font-bold text-[#e6d8c3] mb-2">
+              <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
                 Panel Admin
               </h1>
-              <p className="text-[#e6d8c3]/60 text-sm">YEKA Producciones</p>
+              <p className="text-[#C6C6C6] text-sm">YEKA Producciones</p>
             </div>
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label
                   htmlFor="username"
-                  className="block text-sm font-medium text-[#e6d8c3] mb-2"
+                  className="block text-sm font-medium text-white mb-2"
                 >
                   Usuario
                 </label>
@@ -64,7 +64,7 @@ export default function LoginPage() {
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full px-4 py-3 bg-[#3a5744]/20 border border-[#5d866c]/40 rounded-lg text-[#e6d8c3] placeholder:text-[#e6d8c3]/40 focus:outline-none focus:border-[#c2a68c] focus:bg-[#3a5744]/30 transition-all duration-300"
+                  className="w-full px-4 py-3 bg-[#1f1f1f] border border-[#3a3a3a] rounded-lg text-white placeholder:text-[#C6C6C6]/60 focus:outline-none focus:border-[#c2a68c] focus:bg-[#1f1f1f] transition-all duration-300"
                   placeholder="Ingresa tu usuario"
                   required
                 />
@@ -72,7 +72,7 @@ export default function LoginPage() {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium text-[#e6d8c3] mb-2"
+                  className="block text-sm font-medium text-white mb-2"
                 >
                   Contraseña
                 </label>
@@ -81,7 +81,7 @@ export default function LoginPage() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 bg-[#3a5744]/20 border border-[#5d866c]/40 rounded-lg text-[#e6d8c3] placeholder:text-[#e6d8c3]/40 focus:outline-none focus:border-[#c2a68c] focus:bg-[#3a5744]/30 transition-all duration-300"
+                  className="w-full px-4 py-3 bg-[#1f1f1f] border border-[#3a3a3a] rounded-lg text-white placeholder:text-[#C6C6C6]/60 focus:outline-none focus:border-[#c2a68c] focus:bg-[#1f1f1f] transition-all duration-300"
                   placeholder="Ingresa tu contraseña"
                   required
                 />
@@ -93,7 +93,7 @@ export default function LoginPage() {
               )}
               <button
                 type="submit"
-                className="w-full py-3 bg-[#3a5744] hover:bg-[#5d866c] text-[#e6d8c3] font-semibold rounded-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-lg"
+                className="w-full py-3 bg-[#c2a68c] hover:bg-[#bfa88f] text-black font-semibold rounded-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-lg"
               >
                 Iniciar Sesión
               </button>

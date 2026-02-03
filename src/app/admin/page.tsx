@@ -12,7 +12,7 @@ export default function AdminPage() {
     // Agregar atributo al html y body para prevenir scroll
     document.documentElement.setAttribute("data-admin-page", "true");
     document.body.setAttribute("data-admin-page", "true");
-    
+
     return () => {
       // Limpiar al desmontar
       document.documentElement.removeAttribute("data-admin-page");
@@ -51,9 +51,9 @@ export default function AdminPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="admin-page-container flex flex-col bg-gradient-to-b from-black via-[#3a5744]/20 to-black overflow-hidden">
+      <div className="admin-page-container flex flex-col bg-gradient-to-b from-black via-[#1f1f1f]/40 to-black overflow-hidden">
         <div className="flex-1 flex items-center justify-center overflow-y-auto">
-          <div className="text-[#e6d8c3] text-lg">Verificando...</div>
+          <div className="text-white text-lg">Verificando...</div>
         </div>
         <Footer />
       </div>
@@ -61,36 +61,44 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="admin-page-container flex flex-col bg-gradient-to-b from-black via-[#3a5744]/20 to-black overflow-hidden">
+    <div className="admin-page-container flex flex-col bg-gradient-to-b from-black via-[#1f1f1f]/40 to-black overflow-hidden">
       <div className="flex-1 flex flex-col overflow-y-auto">
         <div className="flex-1 max-w-7xl mx-auto px-4 py-8 md:py-12 w-full">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-[#e6d8c3] mb-2">
+              <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
                 Panel de Administración
               </h1>
-              <p className="text-[#e6d8c3]/60 text-sm">YEKA Producciones</p>
+              <p className="text-[#C6C6C6] text-sm">YEKA Producciones</p>
             </div>
-            <button
-              onClick={handleLogout}
-              className="px-6 py-2.5 bg-red-600/80 hover:bg-red-700 text-white rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 font-medium"
-            >
-              Cerrar Sesión
-            </button>
+            <div className="flex gap-3">
+              <button
+                onClick={() => router.push("/")}
+                className="px-6 py-2.5 bg-[#c2a68c] hover:bg-[#bfa88f] text-black rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 font-medium"
+              >
+                Ver Sitio
+              </button>
+              <button
+                onClick={handleLogout}
+                className="px-6 py-2.5 bg-red-600/80 hover:bg-red-700 text-white rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 font-medium"
+              >
+                Cerrar Sesión
+              </button>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Gestión de Galería */}
             <button
               onClick={() => router.push("/admin/gallery")}
-              className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-[#5d866c]/30 hover:border-[#c2a68c]/50 transition-all duration-300 hover:transform hover:scale-105 text-left cursor-pointer group"
+              className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-[#3a3a3a]/50 hover:border-[#c2a68c] transition-all duration-300 hover:transform hover:scale-105 text-left cursor-pointer group"
             >
               <div className="flex items-center justify-between mb-3">
-                <h2 className="text-xl font-semibold text-[#e6d8c3] group-hover:text-white transition-colors">
+                <h2 className="text-xl font-semibold text-white group-hover:text-[#c2a68c] transition-colors">
                   Galería
                 </h2>
                 <svg
-                  className="w-5 h-5 text-[#5d866c] group-hover:text-[#c2a68c] transition-colors"
+                  className="w-5 h-5 text-[#C6C6C6] group-hover:text-[#c2a68c] transition-colors"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -103,7 +111,7 @@ export default function AdminPage() {
                   />
                 </svg>
               </div>
-              <p className="text-[#e6d8c3]/70 text-sm leading-relaxed">
+              <p className="text-[#C6C6C6] text-sm leading-relaxed">
                 Gestiona las imágenes de la galería por servicio
               </p>
             </button>
@@ -111,14 +119,14 @@ export default function AdminPage() {
             {/* Gestión de Contenido */}
             <button
               onClick={() => router.push("/admin/content")}
-              className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-[#5d866c]/30 hover:border-[#c2a68c]/50 transition-all duration-300 hover:transform hover:scale-105 text-left cursor-pointer group"
+              className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-[#3a3a3a]/50 hover:border-[#c2a68c] transition-all duration-300 hover:transform hover:scale-105 text-left cursor-pointer group"
             >
               <div className="flex items-center justify-between mb-3">
-                <h2 className="text-xl font-semibold text-[#e6d8c3] group-hover:text-white transition-colors">
+                <h2 className="text-xl font-semibold text-white group-hover:text-[#c2a68c] transition-colors">
                   Gestión de Contenido
                 </h2>
                 <svg
-                  className="w-5 h-5 text-[#5d866c] group-hover:text-[#c2a68c] transition-colors"
+                  className="w-5 h-5 text-[#C6C6C6] group-hover:text-[#c2a68c] transition-colors"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -131,7 +139,7 @@ export default function AdminPage() {
                   />
                 </svg>
               </div>
-              <p className="text-[#e6d8c3]/70 text-sm leading-relaxed">
+              <p className="text-[#C6C6C6] text-sm leading-relaxed">
                 Administra el contenido del sitio web
               </p>
             </button>
@@ -139,14 +147,14 @@ export default function AdminPage() {
             {/* Configuración */}
             <button
               onClick={() => router.push("/admin/settings")}
-              className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-[#5d866c]/30 hover:border-[#c2a68c]/50 transition-all duration-300 hover:transform hover:scale-105 text-left cursor-pointer group"
+              className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-[#3a3a3a]/50 hover:border-[#c2a68c] transition-all duration-300 hover:transform hover:scale-105 text-left cursor-pointer group"
             >
               <div className="flex items-center justify-between mb-3">
-                <h2 className="text-xl font-semibold text-[#e6d8c3] group-hover:text-white transition-colors">
+                <h2 className="text-xl font-semibold text-white group-hover:text-[#c2a68c] transition-colors">
                   Configuración
                 </h2>
                 <svg
-                  className="w-5 h-5 text-[#5d866c] group-hover:text-[#c2a68c] transition-colors"
+                  className="w-5 h-5 text-[#C6C6C6] group-hover:text-[#c2a68c] transition-colors"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -159,7 +167,7 @@ export default function AdminPage() {
                   />
                 </svg>
               </div>
-              <p className="text-[#e6d8c3]/70 text-sm leading-relaxed">
+              <p className="text-[#C6C6C6] text-sm leading-relaxed">
                 Ajustes generales del sitio
               </p>
             </button>

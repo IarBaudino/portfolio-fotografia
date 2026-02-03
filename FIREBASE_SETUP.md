@@ -64,28 +64,47 @@ NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=123456789
 NEXT_PUBLIC_FIREBASE_APP_ID=1:123456789:web:abc123
 ```
 
-## Paso 6: Estructura de Datos en Firestore
+## Paso 6: Configurar Cloudinary (Subida de Imágenes)
+
+1. Crea una cuenta en [Cloudinary](https://console.cloudinary.com/)
+2. En el panel, copia tu **Cloud name**
+3. Ve a **Settings > Upload** y crea un **Upload Preset**:
+   - Activa **Unsigned** si quieres subir desde el cliente
+   - (Opcional) Restringe formatos y tamaños
+4. Agrega las variables en tu `.env.local`:
+
+```env
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=tu_cloud_name
+NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=tu_upload_preset
+```
+
+> Este proyecto guarda solo la URL de la imagen en Firestore. Puedes subir a Cloudinary con su widget o API y luego guardar la URL en `imageUrl`.
+
+## Paso 7: Estructura de Datos en Firestore
 
 Firestore organizará los datos así:
 
 ```
 firestore/
+  ├── categories/ (colección)
+  │   ├── {categoryId} (documento)
+  │   │   ├── name: string
+  │   │   └── order: number
+  │   └── ...
+  ├── albums/ (colección)
+  │   ├── {albumId} (documento)
+  │   │   ├── name: string
+  │   │   ├── categoryId: string
+  │   │   └── order: number
+  │   └── ...
   ├── gallery/ (colección)
   │   ├── {photoId} (documento)
-  │   │   ├── title: string
-  │   │   ├── serviceId: string
-  │   │   ├── imageUrl: string (URL de Cloudinary o carpeta pública)
-  │   │   ├── size: "small" | "medium" | "large"
-  │   │   ├── description: string (opcional)
+  │   │   ├── title: string (opcional)
+  │   │   ├── categoryId: string
+  │   │   ├── albumId: string
+  │   │   ├── imageUrl: string (URL de Cloudinary)
   │   │   ├── createdAt: timestamp
   │   │   └── updatedAt: timestamp
-  │   └── ...
-  ├── services/ (colección)
-  │   ├── {serviceId} (documento)
-  │   │   ├── title: string
-  │   │   ├── description: string
-  │   │   ├── features: string[]
-  │   │   └── order: number
   │   └── ...
   ├── config/ (colección)
   │   └── site/ (documento)
@@ -93,33 +112,43 @@ firestore/
   │       ├── slogan: string
   │       ├── description: string
   │       └── contact: { email, phone, address }
-  └── socialLinks/ (colección)
-      ├── {linkId} (documento)
-      │   ├── name: string
-      │   └── url: string
-      └── ...
+  ├── socialLinks/ (colección)
+  │   ├── {linkId} (documento)
+  │   │   ├── name: string
+  │   │   └── url: string
+  │   └── ...
+  ├── testimonials/ (colección)
+  │   ├── {testimonialId} (documento)
+  │   │   ├── name: string
+  │   │   ├── event: string
+  │   │   ├── text: string
+  │   │   ├── rating: number
+  │   │   └── order: number
+  │   └── ...
+  └── content/ (colección)
+      ├── about/ (documento)
+      │   ├── title: string (opcional)
+      │   └── paragraphs: string[]
+      ├── whyChoose/ (documento)
+      │   ├── title: string
+      │   ├── subtitle: string
+      │   └── features: [{ title, description }]
+      └── testimonials/ (documento)
+          ├── title: string
+          └── subtitle: string
 ```
 
-## Paso 7: Uso en el Código
+## Paso 8: Uso en el Código
 
 ```typescript
-import { 
-  getPhotosByService, 
-  addPhoto, 
-  updatePhoto, 
-  deletePhoto 
-} from "@/lib/firebaseFirestore";
+import { addPhoto, updatePhoto, deletePhoto } from "@/lib/firebaseFirestore";
 
-// Obtener fotos de un servicio
-const photos = await getPhotosByService("producto");
-
-// Agregar nueva foto (la URL viene de Cloudinary o carpeta pública)
+// Agregar nueva foto (la URL viene de Cloudinary)
 await addPhoto({
   title: "Mi Foto",
-  serviceId: "producto",
-  imageUrl: "https://res.cloudinary.com/...", // URL de Cloudinary
-  size: "large",
-  description: "Descripción opcional"
+  categoryId: "deportes",
+  albumId: "torneo-futbol",
+  imageUrl: "https://res.cloudinary.com/...",
 });
 
 // Actualizar foto

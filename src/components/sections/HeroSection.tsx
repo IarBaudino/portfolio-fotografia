@@ -57,7 +57,7 @@ const HeroSection = () => {
                   className="object-cover"
                   priority={index === 0}
                   sizes="50vw"
-                  style={{ objectFit: 'cover', height: '100%', width: '100%' }}
+                  style={{ objectFit: "cover", height: "100%", width: "100%" }}
                 />
               </div>
             );
@@ -65,14 +65,14 @@ const HeroSection = () => {
           {/* Fade gradient hacia el centro (lateral) */}
           <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/50 to-black z-10"></div>
           {/* Fade hacia abajo para fundirse con AboutUs */}
-          <div className="absolute bottom-0 inset-x-0 h-24 md:h-96 bg-gradient-to-b from-transparent via-transparent via-40% via-[#3a5744]/20 via-60% to-[#3a5744] z-20"></div>
+          <div className="absolute bottom-0 inset-x-0 h-24 md:h-96 bg-gradient-to-b from-transparent via-transparent via-40% via-[#1f1f1f]/20 via-60% to-[#111111] z-20"></div>
         </div>
       </div>
 
       {/* Fondo sólido lado izquierdo con contenido - siempre visible, también en mobile */}
       <div className="relative z-20 w-1/2 bg-black flex items-center justify-center min-h-[60vh] md:min-h-screen">
         {/* Fade hacia abajo para fundirse con AboutUs */}
-        <div className="absolute bottom-0 inset-x-0 h-24 md:h-96 bg-gradient-to-b from-transparent via-transparent via-40% via-[#3a5744]/20 via-60% to-[#3a5744] z-0"></div>
+        <div className="absolute bottom-0 inset-x-0 h-24 md:h-96 bg-gradient-to-b from-transparent via-transparent via-40% via-[#1f1f1f]/20 via-60% to-[#111111] z-0"></div>
         <div className="text-center space-y-2 md:space-y-8 px-1 md:px-4 py-4 md:py-20">
           <div className="flex justify-center mb-2 md:mb-8">
             <Image
@@ -92,7 +92,7 @@ const HeroSection = () => {
                   element.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="px-2 md:px-6 py-1 md:py-3 bg-[#c2a68c]/10 backdrop-blur-sm text-white hover:bg-[#c2a68c]/20 transition-all duration-300 rounded-md md:rounded-lg text-[9px] md:text-base whitespace-nowrap"
+              className="px-2 md:px-6 py-1 md:py-3 bg-[#c2a68c]/20 backdrop-blur-sm text-white hover:bg-[#c2a68c]/40 transition-all duration-300 rounded-md md:rounded-lg text-[9px] md:text-base whitespace-nowrap"
             >
               Ver Portfolio
             </button>
@@ -103,7 +103,7 @@ const HeroSection = () => {
                   element.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="px-2 md:px-6 py-1 md:py-3 bg-[#c2a68c] text-black hover:bg-[#e6d8c3] transition-all duration-300 rounded-md md:rounded-lg text-[9px] md:text-base whitespace-nowrap font-semibold"
+              className="px-2 md:px-6 py-1 md:py-3 bg-[#c2a68c] text-black hover:bg-[#bfa88f] transition-all duration-300 rounded-md md:rounded-lg text-[9px] md:text-base whitespace-nowrap font-semibold"
             >
               Solicitar Presupuesto
             </button>

@@ -18,13 +18,13 @@ const Navigation = () => {
 
   const scrollToSection = (href: string) => {
     setIsMenuOpen(false);
-    
+
     // Si es un enlace externo (empieza con /), navegar a esa página
     if (href.startsWith("/")) {
       window.location.href = href;
       return;
     }
-    
+
     // Si es un hash (#), verificar si estamos en la página principal
     if (href.startsWith("#")) {
       // Si no estamos en la página principal, navegar primero
@@ -32,7 +32,7 @@ const Navigation = () => {
         window.location.href = `/${href}`;
         return;
       }
-      
+
       // Si estamos en la página principal, hacer scroll a la sección
       // Usar setTimeout para asegurar que el DOM esté listo
       setTimeout(() => {
@@ -40,11 +40,12 @@ const Navigation = () => {
         if (element) {
           const navHeight = 64; // Altura aproximada del navbar
           const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - navHeight;
-          
+          const offsetPosition =
+            elementPosition + window.pageYOffset - navHeight;
+
           window.scrollTo({
             top: Math.max(0, offsetPosition), // Asegurar que no sea negativo
-            behavior: "smooth"
+            behavior: "smooth",
           });
         }
       }, 100);
@@ -56,13 +57,15 @@ const Navigation = () => {
   const rightLinks = NAVIGATION.slice(2); // Portfolio, Testimonios y Contacto
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isMenuOpen
-        ? "bg-black/90 backdrop-blur-sm border-b border-[#5d866c]/30 md:bg-black/60"
-        : isScrolled 
-        ? "bg-black/60 backdrop-blur-sm border-b border-[#5d866c]/30" 
-        : "bg-transparent border-b border-transparent"
-    }`}>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isMenuOpen
+          ? "bg-black/90 backdrop-blur-sm border-b border-[#3a3a3a]/50 md:bg-black/60"
+          : isScrolled
+            ? "bg-black/60 backdrop-blur-sm border-b border-[#3a3a3a]/50"
+            : "bg-transparent border-b border-transparent"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-14 md:h-16 relative">
           {/* Left Navigation Links (Desktop) */}
@@ -71,7 +74,7 @@ const Navigation = () => {
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className="text-[#e6d8c3] hover:text-white transition-colors duration-300 font-medium text-sm md:text-base"
+                className="text-white hover:text-[#c2a68c] transition-colors duration-300 font-medium text-sm md:text-base"
               >
                 {item.name}
               </button>
@@ -100,7 +103,7 @@ const Navigation = () => {
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className="text-[#e6d8c3] hover:text-white transition-colors duration-300 font-medium text-sm md:text-base"
+                className="text-white hover:text-[#c2a68c] transition-colors duration-300 font-medium text-sm md:text-base"
               >
                 {item.name}
               </button>
@@ -139,13 +142,13 @@ const Navigation = () => {
 
         {/* Mobile Navigation Menu */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-[#5d866c]/30">
+          <div className="md:hidden py-4 border-t border-[#3a3a3a]/50">
             <div className="flex flex-col space-y-4">
               {NAVIGATION.map((item) => (
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
-                  className="text-[#e6d8c3] hover:text-white transition-colors duration-300 text-left text-xl font-medium py-3"
+                  className="text-white hover:text-[#c2a68c] transition-colors duration-300 text-left text-xl font-medium py-3"
                 >
                   {item.name}
                 </button>
