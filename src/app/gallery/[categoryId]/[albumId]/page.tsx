@@ -22,6 +22,7 @@ export default function AlbumGalleryPage() {
   const [album, setAlbum] = useState<Album | null>(null);
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     const loadData = async () => {
@@ -33,7 +34,7 @@ export default function AlbumGalleryPage() {
           getPhotosByAlbum(albumId),
         ]);
         setCategory(
-          categoriesData.find((item) => item.id === categoryId) ?? null,
+          categoriesData.find((item) => item.id === categoryId) ?? null
         );
         setAlbum(albumsData.find((item) => item.id === albumId) ?? null);
         setPhotos(photosData);
@@ -108,9 +109,11 @@ export default function AlbumGalleryPage() {
               ) : (
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {photos.map((photo) => (
-                    <div
+                    <button
                       key={photo.id}
-                      className="relative aspect-square overflow-hidden rounded-xl border border-[#3a3a3a]/50"
+                      type="button"
+                      onClick={() => setSelectedImage(photo.imageUrl)}
+                      className="relative aspect-square overflow-hidden rounded-xl border border-[#3a3a3a]/50 focus:outline-none focus:ring-2 focus:ring-[#c2a68c]"
                     >
                       <Image
                         src={photo.imageUrl}
@@ -118,7 +121,7 @@ export default function AlbumGalleryPage() {
                         fill
                         className="object-cover"
                       />
-                    </div>
+                    </button>
                   ))}
                 </div>
               )}
@@ -126,6 +129,27 @@ export default function AlbumGalleryPage() {
           </section>
         )}
       </main>
+
+      {selectedImage && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4">
+          <button
+            type="button"
+            onClick={() => setSelectedImage(null)}
+            className="absolute top-4 right-4 text-white hover:text-[#c2a68c] text-2xl"
+            aria-label="Cerrar"
+          >
+            ✕
+          </button>
+          <div className="relative w-full max-w-5xl h-[80vh]">
+            <Image
+              src={selectedImage}
+              alt="Vista ampliada"
+              fill
+              className="object-contain"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
