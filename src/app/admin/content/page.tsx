@@ -1,19 +1,23 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Footer from "@/components/sections/Footer";
 import {
   getAboutContent,
+  getHeroContent,
   getTestimonials,
   getTestimonialsContent,
   getWhyChooseContent,
   migrateLegacyGalleryData,
   saveAboutContent,
+  saveHeroContent,
   saveTestimonials,
   saveTestimonialsContent,
   saveWhyChooseContent,
   type AboutContent,
+  type HeroContent,
   type Testimonial,
   type TestimonialsContent,
   type WhyChooseContent,
@@ -23,12 +27,19 @@ export default function ContentAdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSavingAbout, setIsSavingAbout] = useState(false);
+  const [isSavingHero, setIsSavingHero] = useState(false);
   const [isSavingWhyChoose, setIsSavingWhyChoose] = useState(false);
   const [isSavingTestimonials, setIsSavingTestimonials] = useState(false);
+  const [isUploadingAboutImage, setIsUploadingAboutImage] = useState(false);
+  const [isUploadingHeroImages, setIsUploadingHeroImages] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [aboutContent, setAboutContent] = useState<AboutContent>({
     title: "",
     paragraphs: ["", "", ""],
+    imageUrl: "",
+  });
+  const [heroContent, setHeroContent] = useState<HeroContent>({
+    images: [],
   });
   const [whyChooseContent, setWhyChooseContent] = useState<WhyChooseContent>({
     title: "",
@@ -86,13 +97,19 @@ export default function ContentAdminPage() {
       setIsLoading(true);
       setError(null);
       try {
-        const [aboutData, whyData, testimonialsData, testimonialsText] =
-          await Promise.all([
-            getAboutContent(),
-            getWhyChooseContent(),
-            getTestimonials(),
-            getTestimonialsContent(),
-          ]);
+        const [
+          aboutData,
+          heroData,
+          whyData,
+          testimonialsData,
+          testimonialsText,
+        ] = await Promise.all([
+          getAboutContent(),
+          getHeroContent(),
+          getWhyChooseContent(),
+          getTestimonials(),
+          getTestimonialsContent(),
+        ]);
 
         if (aboutData) {
           setAboutContent({
@@ -100,6 +117,13 @@ export default function ContentAdminPage() {
             paragraphs: aboutData.paragraphs?.length
               ? aboutData.paragraphs
               : ["", "", ""],
+            imageUrl: aboutData.imageUrl ?? "",
+          });
+        }
+
+        if (heroData) {
+          setHeroContent({
+            images: heroData.images ?? [],
           });
         }
 
@@ -146,6 +170,121 @@ export default function ContentAdminPage() {
       setError("No se pudo guardar el contenido de Sobre Nosotros.");
     } finally {
       setIsSavingAbout(false);
+    }
+  };
+
+  const handleSaveHero = async () => {
+    setIsSavingHero(true);
+    setError(null);
+    try {
+      await saveHeroContent(heroContent);
+      alert("Hero guardado exitosamente");
+    } catch (saveError) {
+      console.error(saveError);
+      setError("No se pudo guardar el hero.");
+    } finally {
+      setIsSavingHero(false);
+    }
+  };
+
+  const handleUploadAboutImage = async (file: File) => {
+    const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+    const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+
+    if (!cloudName || !uploadPreset) {
+      setError(
+        "Faltan las variables de Cloudinary. Revisa NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME y NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET."
+      );
+      return;
+    }
+
+    setIsUploadingAboutImage(true);
+    setError(null);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", uploadPreset);
+
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al subir la imagen");
+      }
+
+      const data = await response.json();
+      const url = data.secure_url || data.url;
+
+      if (!url) {
+        throw new Error("No se recibió la URL de la imagen.");
+      }
+
+      setAboutContent((prev) => ({ ...prev, imageUrl: url }));
+    } catch (uploadError) {
+      console.error(uploadError);
+      setError("No se pudo subir la imagen.");
+    } finally {
+      setIsUploadingAboutImage(false);
+    }
+  };
+
+  const handleUploadHeroImages = async (files: FileList) => {
+    const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+    const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+
+    if (!cloudName || !uploadPreset) {
+      setError(
+        "Faltan las variables de Cloudinary. Revisa NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME y NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET."
+      );
+      return;
+    }
+
+    setIsUploadingHeroImages(true);
+    setError(null);
+    try {
+      const uploads = await Promise.all(
+        Array.from(files).map(async (file) => {
+          const formData = new FormData();
+          formData.append("file", file);
+          formData.append("upload_preset", uploadPreset);
+
+          const response = await fetch(
+            `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+            {
+              method: "POST",
+              body: formData,
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Error al subir la imagen");
+          }
+
+          const data = await response.json();
+          const url = data.secure_url || data.url;
+
+          if (!url) {
+            throw new Error("No se recibió la URL de la imagen.");
+          }
+
+          return url as string;
+        })
+      );
+
+      setHeroContent((prev) => ({
+        ...prev,
+        images: [...prev.images, ...uploads],
+      }));
+    } catch (uploadError) {
+      console.error(uploadError);
+      setError("No se pudieron subir las imágenes del hero.");
+    } finally {
+      setIsUploadingHeroImages(false);
     }
   };
 
@@ -207,7 +346,7 @@ export default function ContentAdminPage() {
 
   const handleRemoveTestimonial = (id: string) => {
     setTestimonials((prev) =>
-      prev.filter((testimonial) => testimonial.id !== id),
+      prev.filter((testimonial) => testimonial.id !== id)
     );
   };
 
@@ -218,7 +357,7 @@ export default function ContentAdminPage() {
     try {
       const result = await migrateLegacyGalleryData();
       setMigrationResult(
-        `Migración completa. Categorías: ${result.categoriesCreated}, Álbumes: ${result.albumsCreated}, Fotos actualizadas: ${result.photosUpdated}, Fotos omitidas: ${result.photosSkipped}, Servicios legacy eliminados: ${result.servicesDeleted}.`,
+        `Migración completa. Categorías: ${result.categoriesCreated}, Álbumes: ${result.albumsCreated}, Fotos actualizadas: ${result.photosUpdated}, Fotos omitidas: ${result.photosSkipped}, Servicios legacy eliminados: ${result.servicesDeleted}.`
       );
     } catch (migrationError) {
       console.error(migrationError);
@@ -293,6 +432,86 @@ export default function ContentAdminPage() {
                 {error}
               </div>
             )}
+            {/* Hero */}
+            <div className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-[#3a3a3a]/50">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-xl font-semibold text-white">Hero</h2>
+                <button
+                  onClick={handleSaveHero}
+                  disabled={isSavingHero}
+                  className="px-4 py-2 bg-[#c2a68c] hover:bg-[#bfa88f] text-black rounded-lg transition-all duration-300 disabled:opacity-60"
+                >
+                  {isSavingHero ? "Guardando..." : "Guardar Cambios"}
+                </button>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-white mb-2">
+                    Imágenes del carrusel
+                  </label>
+                  <input
+                    id="hero-images-upload"
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={(e) => {
+                      const files = e.target.files;
+                      if (files && files.length > 0) {
+                        handleUploadHeroImages(files);
+                      }
+                    }}
+                    className="hidden"
+                  />
+                  <div className="flex items-center gap-3">
+                    <label
+                      htmlFor="hero-images-upload"
+                      className="inline-flex items-center justify-center px-4 py-2 bg-[#c2a68c] hover:bg-[#bfa88f] text-black rounded-lg transition-all duration-300 cursor-pointer"
+                    >
+                      Agregar imágenes
+                    </label>
+                    {isUploadingHeroImages && (
+                      <span className="text-xs text-[#C6C6C6]">
+                        Subiendo imágenes...
+                      </span>
+                    )}
+                  </div>
+                </div>
+                {heroContent.images.length > 0 ? (
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {heroContent.images.map((imageUrl, index) => (
+                      <div
+                        key={`${imageUrl}-${index}`}
+                        className="relative aspect-video rounded-lg overflow-hidden border border-[#3a3a3a]"
+                      >
+                        <Image
+                          src={imageUrl}
+                          alt={`Hero ${index + 1}`}
+                          fill
+                          className="object-cover"
+                        />
+                        <button
+                          onClick={() =>
+                            setHeroContent((prev) => ({
+                              ...prev,
+                              images: prev.images.filter(
+                                (_, itemIndex) => itemIndex !== index
+                              ),
+                            }))
+                          }
+                          className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded"
+                        >
+                          Quitar
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-[#C6C6C6]">
+                    No hay imágenes cargadas.
+                  </p>
+                )}
+              </div>
+            </div>
             {/* Sobre Nosotros */}
             <div className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-[#3a3a3a]/50">
               <div className="flex justify-between items-center mb-6">
@@ -323,6 +542,48 @@ export default function ContentAdminPage() {
                     }
                     className="w-full px-4 py-2 bg-[#1f1f1f] border border-[#3a3a3a] rounded-lg text-white focus:outline-none focus:border-[#c2a68c]"
                   />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-white mb-2">
+                    Imagen de Sobre Nosotros
+                  </label>
+                  <input
+                    id="about-image-upload"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        handleUploadAboutImage(file);
+                      }
+                    }}
+                    className="hidden"
+                  />
+                  <div className="flex items-center gap-3">
+                    <label
+                      htmlFor="about-image-upload"
+                      className="inline-flex items-center justify-center px-4 py-2 bg-[#c2a68c] hover:bg-[#bfa88f] text-black rounded-lg transition-all duration-300 cursor-pointer"
+                    >
+                      {aboutContent.imageUrl
+                        ? "Cambiar imagen"
+                        : "Agregar imagen"}
+                    </label>
+                    {isUploadingAboutImage && (
+                      <span className="text-xs text-[#C6C6C6]">
+                        Subiendo imagen...
+                      </span>
+                    )}
+                  </div>
+                  {aboutContent.imageUrl && (
+                    <div className="mt-3 relative w-full max-w-sm aspect-[3/4] rounded-lg overflow-hidden border border-[#3a3a3a]">
+                      <Image
+                        src={aboutContent.imageUrl}
+                        alt="Preview Sobre Nosotros"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
                 </div>
                 {aboutContent.paragraphs.map((paragraph, index) => (
                   <div key={index}>

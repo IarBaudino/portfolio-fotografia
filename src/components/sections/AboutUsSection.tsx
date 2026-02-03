@@ -9,6 +9,7 @@ const AboutUsSection = () => {
   const [aboutContent, setAboutContent] = useState<AboutContent>({
     title: "",
     paragraphs: [],
+    imageUrl: "",
   });
 
   useEffect(() => {
@@ -23,6 +24,7 @@ const AboutUsSection = () => {
           setAboutContent({
             title: data.title ?? "",
             paragraphs: data.paragraphs ?? [],
+            imageUrl: data.imageUrl ?? "",
           });
         }
       } catch (error) {
@@ -67,7 +69,7 @@ const AboutUsSection = () => {
           <div className="w-auto flex-shrink-0 flex justify-center md:block relative z-30">
             <div className="relative w-32 md:w-64 h-auto aspect-[3/4] md:h-96">
               <Image
-                src="/about.jpg"
+                src={aboutContent.imageUrl || "/about.jpg"}
                 alt="About Us"
                 fill
                 className="object-contain rounded-lg md:rounded-2xl"
@@ -80,7 +82,7 @@ const AboutUsSection = () => {
           {/* Texto - centrado verticalmente */}
           <div className="relative w-auto md:w-auto md:flex-1 space-y-1 md:space-y-6 flex flex-col justify-center z-30">
             {aboutContent.title ? (
-              <h2 className="text-3xl md:text-5xl font-bold text-[#EDEDED] mb-2 md:mb-6">
+              <h2 className="text-2xl md:text-4xl font-bold text-[#EDEDED] mb-2 md:mb-6">
                 {aboutContent.title}
               </h2>
             ) : null}

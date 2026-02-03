@@ -70,6 +70,22 @@ const ServicesSection = () => {
     return albums.find((album) => album.id === selectedAlbum)?.name ?? "";
   }, [albums, selectedAlbum]);
 
+  const selectedCategorySlug = useMemo(() => {
+    if (!selectedCategory) {
+      return "";
+    }
+    const category = categories.find((item) => item.id === selectedCategory);
+    return category?.slug || category?.id || "";
+  }, [categories, selectedCategory]);
+
+  const selectedAlbumSlug = useMemo(() => {
+    if (!selectedAlbum) {
+      return "";
+    }
+    const album = albums.find((item) => item.id === selectedAlbum);
+    return album?.slug || album?.id || "";
+  }, [albums, selectedAlbum]);
+
   useEffect(() => {
     if (!selectedCategory) {
       setAlbums([]);
@@ -292,13 +308,13 @@ const ServicesSection = () => {
                   </div>
                 )}
                 {selectedAlbumImages.length > 10 &&
-                  selectedCategory &&
-                  selectedAlbum && (
+                  selectedCategorySlug &&
+                  selectedAlbumSlug && (
                     <div className="mt-6 text-center">
                       <button
                         onClick={() =>
                           router.push(
-                            `/gallery/${selectedCategory}/${selectedAlbum}`
+                            `/gallery/${selectedCategorySlug}/${selectedAlbumSlug}`
                           )
                         }
                         className="px-6 py-3 bg-[#c2a68c] hover:bg-[#bfa88f] text-black rounded-lg transition-all duration-300 font-medium"

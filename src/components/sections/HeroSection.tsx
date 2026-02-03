@@ -2,19 +2,20 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { getHeroContent } from "@/lib/firebaseFirestore";
 
 const HeroSection = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  const backgroundImages = [
+  const [backgroundImages, setBackgroundImages] = useState<string[]>([
     "/quince (1).jpg",
     "/quince (2).jpg",
     "/quince (3).jpg",
     "/quince (4).jpg",
     "/quince (5).jpg",
     "/quince (6).jpg",
-  ];
+  ]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -29,6 +30,41 @@ const HeroSection = () => {
 
     return () => clearInterval(interval);
   }, [backgroundImages.length]);
+
+  useEffect(() => {
+    const loadHero = async () => {
+      try {
+        const data = await getHeroContent();
+        if (data?.images?.length) {
+          setBackgroundImages(data.images);
+        }
+      } catch (error) {
+        console.error("Error al cargar hero:", error);
+      }
+    };
+
+    loadHero();
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    if (window.location.pathname !== "/") {
+      window.location.href = `/#${id}`;
+      return;
+    }
+
+    setTimeout(() => {
+      const element = document.querySelector(`#${id}`);
+      if (element) {
+        const navHeight = 64;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+        window.scrollTo({
+          top: Math.max(0, offsetPosition),
+          behavior: "smooth",
+        });
+      }
+    }, 100);
+  };
 
   return (
     <section className="relative min-h-[60vh] md:min-h-screen flex overflow-hidden z-40">
@@ -86,26 +122,11 @@ const HeroSection = () => {
           </div>
           <div className="flex flex-row gap-1.5 md:gap-6 justify-center">
             <button
-              onClick={() => {
-                const element = document.querySelector("#services");
-                if (element) {
-                  element.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
+              type="button"
+              onClick={() => scrollToSection("services")}
               className="px-2 md:px-6 py-1 md:py-3 bg-[#c2a68c]/20 backdrop-blur-sm text-white hover:bg-[#c2a68c]/40 transition-all duration-300 rounded-md md:rounded-lg text-[9px] md:text-base whitespace-nowrap"
             >
               Ver Portfolio
-            </button>
-            <button
-              onClick={() => {
-                const element = document.querySelector("#contact");
-                if (element) {
-                  element.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
-              className="px-2 md:px-6 py-1 md:py-3 bg-[#c2a68c] text-black hover:bg-[#bfa88f] transition-all duration-300 rounded-md md:rounded-lg text-[9px] md:text-base whitespace-nowrap font-semibold"
-            >
-              Solicitar Presupuesto
             </button>
           </div>
         </div>

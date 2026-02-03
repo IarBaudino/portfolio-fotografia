@@ -220,8 +220,19 @@ export default function GalleryAdminPage() {
 
   const handleAddCategory = async () => {
     const name = newCategoryName.trim();
+    const slug = buildSlugFromName(name);
     if (!name) {
       setError("Ingresa un nombre para la categoría.");
+      return;
+    }
+    if (
+      categories.some(
+        (category) =>
+          buildSlugFromName(category.name) === slug ||
+          (category.slug && category.slug === slug)
+      )
+    ) {
+      setError("Ya existe una categoría con ese nombre.");
       return;
     }
     setIsSaving(true);
@@ -229,7 +240,7 @@ export default function GalleryAdminPage() {
     try {
       await addCategory({
         name,
-        slug: buildSlugFromName(name),
+        slug,
         order: categories.length + 1,
       });
       const categoriesData = await getCategories();
@@ -281,8 +292,20 @@ export default function GalleryAdminPage() {
       return;
     }
     const name = editingCategoryName.trim();
+    const slug = buildSlugFromName(name);
     if (!name) {
       setError("Ingresa un nombre para la categoría.");
+      return;
+    }
+    if (
+      categories.some(
+        (category) =>
+          category.id !== editingCategoryId &&
+          (buildSlugFromName(category.name) === slug ||
+            (category.slug && category.slug === slug))
+      )
+    ) {
+      setError("Ya existe una categoría con ese nombre.");
       return;
     }
     setIsSaving(true);
@@ -290,7 +313,7 @@ export default function GalleryAdminPage() {
     try {
       await updateCategory(editingCategoryId, {
         name,
-        slug: buildSlugFromName(name),
+        slug,
       });
       const categoriesData = await getCategories();
       setCategories(categoriesData);
@@ -306,6 +329,7 @@ export default function GalleryAdminPage() {
 
   const handleAddAlbum = async () => {
     const name = newAlbumName.trim();
+    const slug = buildSlugFromName(name);
     if (!selectedCategory) {
       setError("Selecciona una categoría antes de agregar un álbum.");
       return;
@@ -314,12 +338,23 @@ export default function GalleryAdminPage() {
       setError("Ingresa un nombre para el álbum.");
       return;
     }
+    if (
+      albums.some(
+        (album) =>
+          album.categoryId === selectedCategory &&
+          (buildSlugFromName(album.name) === slug ||
+            (album.slug && album.slug === slug))
+      )
+    ) {
+      setError("Ya existe un álbum con ese nombre en esta categoría.");
+      return;
+    }
     setIsSaving(true);
     setError(null);
     try {
       await addAlbum({
         name,
-        slug: buildSlugFromName(name),
+        slug,
         categoryId: selectedCategory,
         order: albums.length + 1,
       });
@@ -374,8 +409,21 @@ export default function GalleryAdminPage() {
       return;
     }
     const name = editingAlbumName.trim();
+    const slug = buildSlugFromName(name);
     if (!name) {
       setError("Ingresa un nombre para el álbum.");
+      return;
+    }
+    if (
+      albums.some(
+        (album) =>
+          album.id !== editingAlbumId &&
+          album.categoryId === selectedCategory &&
+          (buildSlugFromName(album.name) === slug ||
+            (album.slug && album.slug === slug))
+      )
+    ) {
+      setError("Ya existe un álbum con ese nombre en esta categoría.");
       return;
     }
     setIsSaving(true);
@@ -383,7 +431,7 @@ export default function GalleryAdminPage() {
     try {
       await updateAlbum(editingAlbumId, {
         name,
-        slug: buildSlugFromName(name),
+        slug,
       });
       if (selectedCategory) {
         const albumsData = await getAlbumsByCategory(selectedCategory);
@@ -872,9 +920,10 @@ export default function GalleryAdminPage() {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-white mb-2">
-                      Subir Imágenes a Cloudinary
+                      Subir imágenes
                     </label>
                     <input
+                      id="gallery-upload"
                       type="file"
                       accept="image/*"
                       multiple={!editingPhoto}
@@ -884,8 +933,14 @@ export default function GalleryAdminPage() {
                           handleUploadFiles(files);
                         }
                       }}
-                      className="w-full text-white text-sm"
+                      className="hidden"
                     />
+                    <label
+                      htmlFor="gallery-upload"
+                      className="inline-flex items-center justify-center px-4 py-2 bg-[#c2a68c] hover:bg-[#bfa88f] text-black rounded-lg transition-all duration-300 cursor-pointer"
+                    >
+                      Agregar imágenes
+                    </label>
                     {isUploading && (
                       <p className="text-[#C6C6C6] text-xs mt-2">
                         Subiendo imagen...
@@ -973,12 +1028,6 @@ export default function GalleryAdminPage() {
                         {photo.title || "Sin título"}
                       </h3>
                       <div className="flex gap-2 mt-3">
-                        <button
-                          onClick={() => handleOpenEdit(photo)}
-                          className="flex-1 px-3 py-1.5 bg-[#c2a68c]/70 hover:bg-[#c2a68c] text-black text-xs rounded transition-colors"
-                        >
-                          Editar
-                        </button>
                         <button
                           onClick={() => handleDeletePhoto(photo.id)}
                           className="flex-1 px-3 py-1.5 bg-red-600/50 hover:bg-red-600 text-white text-xs rounded transition-colors"

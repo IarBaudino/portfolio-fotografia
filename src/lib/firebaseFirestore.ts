@@ -69,6 +69,7 @@ export interface Testimonial {
 export interface AboutContent {
   title?: string;
   paragraphs: string[];
+  imageUrl?: string;
 }
 
 export interface WhyChooseContent {
@@ -83,6 +84,10 @@ export interface WhyChooseContent {
 export interface TestimonialsContent {
   title: string;
   subtitle: string;
+}
+
+export interface HeroContent {
+  images: string[];
 }
 
 // ==================== GALERÍA ====================
@@ -589,6 +594,32 @@ export async function saveTestimonialsContent(
   } catch (error) {
     console.error("Error al guardar contenido de testimonios:", error);
     throw new Error("Error al guardar la información");
+  }
+}
+
+// ==================== HERO ====================
+
+export async function getHeroContent(): Promise<HeroContent | null> {
+  try {
+    const heroRef = doc(db, "content", "hero");
+    const heroSnap = await getDoc(heroRef);
+    if (heroSnap.exists()) {
+      return heroSnap.data() as HeroContent;
+    }
+    return null;
+  } catch (error) {
+    console.error("Error al obtener hero:", error);
+    throw new Error("Error al obtener el hero");
+  }
+}
+
+export async function saveHeroContent(content: HeroContent): Promise<void> {
+  try {
+    const heroRef = doc(db, "content", "hero");
+    await setDoc(heroRef, content);
+  } catch (error) {
+    console.error("Error al guardar hero:", error);
+    throw new Error("Error al guardar el hero");
   }
 }
 

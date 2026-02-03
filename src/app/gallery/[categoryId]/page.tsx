@@ -15,25 +15,35 @@ import {
 export default function GalleryByCategoryPage() {
   const router = useRouter();
   const params = useParams();
-  const categoryId = params?.categoryId as string;
+  const categoryParam = params?.categoryId as string;
 
   const [category, setCategory] = useState<Category | null>(null);
   const [albums, setAlbums] = useState<Album[]>([]);
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const loadData = async () => {
       setIsLoading(true);
       try {
-        const [categoriesData, albumsData, photosData] = await Promise.all([
-          getCategories(),
-          getAlbumsByCategory(categoryId),
-          getPhotosByCategory(categoryId),
-        ]);
+        const categoriesData = await getCategories();
         const currentCategory =
-          categoriesData.find((item) => item.id === categoryId) ?? null;
+          categoriesData.find(
+            (item) => item.id === categoryParam || item.slug === categoryParam
+          ) ?? null;
+
+        if (!currentCategory) {
+          setCategory(null);
+          setAlbums([]);
+          setPhotos([]);
+          return;
+        }
+
+        const [albumsData, photosData] = await Promise.all([
+          getAlbumsByCategory(currentCategory.id),
+          getPhotosByCategory(currentCategory.id),
+        ]);
         setCategory(currentCategory);
         setAlbums(albumsData);
         setPhotos(photosData);
@@ -44,10 +54,38 @@ export default function GalleryByCategoryPage() {
       }
     };
 
-    if (categoryId) {
+    if (categoryParam) {
       loadData();
     }
-  }, [categoryId]);
+  }, [categoryParam]);
+
+  useEffect(() => {
+    if (selectedIndex === null) {
+      return;
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!photos.length) {
+        return;
+      }
+      if (event.key === "Escape") {
+        setSelectedIndex(null);
+      }
+      if (event.key === "ArrowRight") {
+        setSelectedIndex((prev) =>
+          prev === null ? 0 : (prev + 1) % photos.length
+        );
+      }
+      if (event.key === "ArrowLeft") {
+        setSelectedIndex((prev) =>
+          prev === null ? 0 : (prev - 1 + photos.length) % photos.length
+        );
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [photos.length, selectedIndex]);
 
   const photosByAlbum = useMemo(() => {
     const grouped: Record<string, GalleryPhoto[]> = {};
@@ -139,7 +177,14 @@ export default function GalleryByCategoryPage() {
                         <button
                           key={photo.id}
                           type="button"
-                          onClick={() => setSelectedImage(photo.imageUrl)}
+                          onClick={() => {
+                            const index = photos.findIndex(
+                              (item) => item.id === photo.id
+                            );
+                            if (index >= 0) {
+                              setSelectedIndex(index);
+                            }
+                          }}
                           className="relative aspect-square overflow-hidden rounded-xl border border-[#3a3a3a]/50 focus:outline-none focus:ring-2 focus:ring-[#c2a68c]"
                         >
                           <Image
@@ -172,11 +217,11 @@ export default function GalleryByCategoryPage() {
         </section>
       </main>
 
-      {selectedImage && (
+      {selectedIndex !== null && photos[selectedIndex] && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4">
           <button
             type="button"
-            onClick={() => setSelectedImage(null)}
+            onClick={() => setSelectedIndex(null)}
             className="absolute top-4 right-4 text-white hover:text-[#c2a68c] text-2xl"
             aria-label="Cerrar"
           >
@@ -184,7 +229,7 @@ export default function GalleryByCategoryPage() {
           </button>
           <div className="relative w-full max-w-5xl h-[80vh]">
             <Image
-              src={selectedImage}
+              src={photos[selectedIndex].imageUrl}
               alt="Vista ampliada"
               fill
               className="object-contain"

@@ -188,65 +188,6 @@ export default function SettingsAdminPage() {
                 {error}
               </div>
             )}
-            {/* Información del Sitio */}
-            <div className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-[#3a3a3a]/50">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold text-white">
-                  Información del Sitio
-                </h2>
-                <button
-                  onClick={handleSave}
-                  disabled={isSaving}
-                  className="px-4 py-2 bg-[#c2a68c] hover:bg-[#bfa88f] text-black rounded-lg transition-all duration-300 disabled:opacity-60"
-                >
-                  {isSaving ? "Guardando..." : "Guardar Cambios"}
-                </button>
-              </div>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-white mb-2">
-                    Nombre del Sitio
-                  </label>
-                  <input
-                    type="text"
-                    value={siteConfig.name}
-                    onChange={(e) =>
-                      setSiteConfig({ ...siteConfig, name: e.target.value })
-                    }
-                    className="w-full px-4 py-2 bg-[#1f1f1f] border border-[#3a3a3a] rounded-lg text-white focus:outline-none focus:border-[#c2a68c]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-white mb-2">
-                    Slogan
-                  </label>
-                  <input
-                    type="text"
-                    value={siteConfig.slogan}
-                    onChange={(e) =>
-                      setSiteConfig({ ...siteConfig, slogan: e.target.value })
-                    }
-                    className="w-full px-4 py-2 bg-[#1f1f1f] border border-[#3a3a3a] rounded-lg text-white focus:outline-none focus:border-[#c2a68c]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-white mb-2">
-                    Descripción
-                  </label>
-                  <textarea
-                    value={siteConfig.description}
-                    onChange={(e) =>
-                      setSiteConfig({
-                        ...siteConfig,
-                        description: e.target.value,
-                      })
-                    }
-                    rows={3}
-                    className="w-full px-4 py-2 bg-[#1f1f1f] border border-[#3a3a3a] rounded-lg text-white focus:outline-none focus:border-[#c2a68c] resize-none"
-                  />
-                </div>
-              </div>
-            </div>
             {/* Contact Information */}
             <div className="bg-black/60 backdrop-blur-sm rounded-xl p-6 border border-[#3a3a3a]/50">
               <div className="flex justify-between items-center mb-6">
