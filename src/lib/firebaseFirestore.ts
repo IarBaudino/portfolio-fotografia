@@ -28,12 +28,14 @@ export interface GalleryPhoto {
 export interface Category {
   id: string;
   name: string;
+  slug?: string;
   order?: number;
 }
 
 export interface Album {
   id: string;
   name: string;
+  slug?: string;
   categoryId: string;
   order?: number;
 }
@@ -89,14 +91,14 @@ export interface TestimonialsContent {
  * Obtiene todas las fotos de una categoría específica
  */
 export async function getPhotosByCategory(
-  categoryId: string,
+  categoryId: string
 ): Promise<GalleryPhoto[]> {
   try {
     const photosRef = collection(db, "gallery");
     const q = query(
       photosRef,
       where("categoryId", "==", categoryId),
-      orderBy("createdAt", "desc"),
+      orderBy("createdAt", "desc")
     );
     const querySnapshot = await getDocs(q);
 
@@ -136,7 +138,7 @@ export async function getAllPhotos(): Promise<GalleryPhoto[]> {
  * Agrega una nueva foto a la galería
  */
 export async function addPhoto(
-  photo: Omit<GalleryPhoto, "id" | "createdAt" | "updatedAt">,
+  photo: Omit<GalleryPhoto, "id" | "createdAt" | "updatedAt">
 ): Promise<string> {
   try {
     const photosRef = collection(db, "gallery");
@@ -162,7 +164,7 @@ export async function addPhoto(
  */
 export async function updatePhoto(
   photoId: string,
-  updates: Partial<GalleryPhoto>,
+  updates: Partial<GalleryPhoto>
 ): Promise<void> {
   try {
     const photoRef = doc(db, "gallery", photoId);
@@ -214,7 +216,7 @@ export async function getCategories(): Promise<Category[]> {
  * Agrega una nueva categoría
  */
 export async function addCategory(
-  category: Omit<Category, "id">,
+  category: Omit<Category, "id">
 ): Promise<string> {
   try {
     const categoriesRef = collection(db, "categories");
@@ -233,7 +235,7 @@ export async function addCategory(
  */
 export async function updateCategory(
   categoryId: string,
-  updates: Partial<Category>,
+  updates: Partial<Category>
 ): Promise<void> {
   try {
     const categoryRef = doc(db, "categories", categoryId);
@@ -252,17 +254,17 @@ export async function deleteCategory(categoryId: string): Promise<void> {
     const albumsRef = collection(db, "albums");
     const photosRef = collection(db, "gallery");
     const albumsSnap = await getDocs(
-      query(albumsRef, where("categoryId", "==", categoryId)),
+      query(albumsRef, where("categoryId", "==", categoryId))
     );
     const photosSnap = await getDocs(
-      query(photosRef, where("categoryId", "==", categoryId)),
+      query(photosRef, where("categoryId", "==", categoryId))
     );
 
     const deleteAlbumPromises = albumsSnap.docs.map((docItem) =>
-      deleteDoc(docItem.ref),
+      deleteDoc(docItem.ref)
     );
     const deletePhotoPromises = photosSnap.docs.map((docItem) =>
-      deleteDoc(docItem.ref),
+      deleteDoc(docItem.ref)
     );
     await Promise.all([...deleteAlbumPromises, ...deletePhotoPromises]);
 
@@ -280,14 +282,14 @@ export async function deleteCategory(categoryId: string): Promise<void> {
  * Obtiene los álbumes de una categoría
  */
 export async function getAlbumsByCategory(
-  categoryId: string,
+  categoryId: string
 ): Promise<Album[]> {
   try {
     const albumsRef = collection(db, "albums");
     const q = query(
       albumsRef,
       where("categoryId", "==", categoryId),
-      orderBy("order", "asc"),
+      orderBy("order", "asc")
     );
     const querySnapshot = await getDocs(q);
 
@@ -305,14 +307,14 @@ export async function getAlbumsByCategory(
  * Obtiene las fotos de un álbum
  */
 export async function getPhotosByAlbum(
-  albumId: string,
+  albumId: string
 ): Promise<GalleryPhoto[]> {
   try {
     const photosRef = collection(db, "gallery");
     const q = query(
       photosRef,
       where("albumId", "==", albumId),
-      orderBy("createdAt", "desc"),
+      orderBy("createdAt", "desc")
     );
     const querySnapshot = await getDocs(q);
 
@@ -348,7 +350,7 @@ export async function addAlbum(album: Omit<Album, "id">): Promise<string> {
  */
 export async function updateAlbum(
   albumId: string,
-  updates: Partial<Album>,
+  updates: Partial<Album>
 ): Promise<void> {
   try {
     const albumRef = doc(db, "albums", albumId);
@@ -366,10 +368,10 @@ export async function deleteAlbum(albumId: string): Promise<void> {
   try {
     const photosRef = collection(db, "gallery");
     const photosSnap = await getDocs(
-      query(photosRef, where("albumId", "==", albumId)),
+      query(photosRef, where("albumId", "==", albumId))
     );
     const deletePhotoPromises = photosSnap.docs.map((docItem) =>
-      deleteDoc(docItem.ref),
+      deleteDoc(docItem.ref)
     );
     await Promise.all(deletePhotoPromises);
 
@@ -483,13 +485,13 @@ export async function getTestimonials(): Promise<Testimonial[]> {
  * Guarda testimonios (reemplaza todo)
  */
 export async function saveTestimonials(
-  testimonials: Testimonial[],
+  testimonials: Testimonial[]
 ): Promise<void> {
   try {
     const testimonialsRef = collection(db, "testimonials");
     const querySnapshot = await getDocs(testimonialsRef);
     const deletePromises = querySnapshot.docs.map((docItem) =>
-      deleteDoc(docItem.ref),
+      deleteDoc(docItem.ref)
     );
     await Promise.all(deletePromises);
 
@@ -551,7 +553,7 @@ export async function getWhyChooseContent(): Promise<WhyChooseContent | null> {
 }
 
 export async function saveWhyChooseContent(
-  content: WhyChooseContent,
+  content: WhyChooseContent
 ): Promise<void> {
   try {
     const whyRef = doc(db, "content", "whyChoose");
@@ -579,7 +581,7 @@ export async function getTestimonialsContent(): Promise<TestimonialsContent | nu
 }
 
 export async function saveTestimonialsContent(
-  content: TestimonialsContent,
+  content: TestimonialsContent
 ): Promise<void> {
   try {
     const contentRef = doc(db, "content", "testimonials");
@@ -714,7 +716,7 @@ export async function migrateLegacyGalleryData(): Promise<{
   }
 
   const deleteLegacyPromises = servicesSnap.docs.map((docItem) =>
-    deleteDoc(docItem.ref),
+    deleteDoc(docItem.ref)
   );
   await Promise.all(deleteLegacyPromises);
   servicesDeleted = servicesSnap.docs.length;

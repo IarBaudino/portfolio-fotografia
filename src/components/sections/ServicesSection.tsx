@@ -47,7 +47,7 @@ const ServicesSection = () => {
 
   const categories = useMemo<Category[]>(
     () => categoriesData,
-    [categoriesData],
+    [categoriesData]
   );
 
   const categoryAlbums = useMemo(() => {
@@ -80,7 +80,7 @@ const ServicesSection = () => {
       try {
         const albumsData = await getAlbumsByCategory(selectedCategory);
         setAlbums(albumsData);
-        setSelectedAlbum((prev) => prev ?? albumsData[0]?.id ?? null);
+        setSelectedAlbum(albumsData[0]?.id ?? null);
       } catch (error) {
         console.error("Error al cargar álbumes:", error);
         setAlbums([]);
@@ -162,12 +162,12 @@ const ServicesSection = () => {
                     selectedCategory !== category.id && (
                       <div className="hidden md:block absolute left-full top-0 ml-6 w-56 h-36 bg-black/95 backdrop-blur-md rounded-xl p-3 z-20 shadow-2xl border border-[#3a3a3a]/30">
                         {photos.some(
-                          (photo) => photo.categoryId === category.id,
+                          (photo) => photo.categoryId === category.id
                         ) ? (
                           <div className="grid grid-cols-3 gap-2 h-full">
                             {photos
                               .filter(
-                                (photo) => photo.categoryId === category.id,
+                                (photo) => photo.categoryId === category.id
                               )
                               .slice(0, 3)
                               .map((photo, index) => (
@@ -177,7 +177,9 @@ const ServicesSection = () => {
                                 >
                                   <Image
                                     src={photo.imageUrl}
-                                    alt={`Preview ${category.name} ${index + 1}`}
+                                    alt={`Preview ${category.name} ${
+                                      index + 1
+                                    }`}
                                     fill
                                     className="object-cover group-hover/preview:scale-105 transition-transform duration-300"
                                   />
@@ -273,7 +275,7 @@ const ServicesSection = () => {
                             src={image}
                             alt={`${
                               categories.find(
-                                (cat) => cat.id === selectedCategory,
+                                (cat) => cat.id === selectedCategory
                               )?.name
                             } ${index + 1}`}
                             fill
@@ -296,7 +298,7 @@ const ServicesSection = () => {
                       <button
                         onClick={() =>
                           router.push(
-                            `/gallery/${selectedCategory}/${selectedAlbum}`,
+                            `/gallery/${selectedCategory}/${selectedAlbum}`
                           )
                         }
                         className="px-6 py-3 bg-[#c2a68c] hover:bg-[#bfa88f] text-black rounded-lg transition-all duration-300 font-medium"

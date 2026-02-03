@@ -50,6 +50,16 @@ const buildTitleFromFilename = (filename: string) => {
   return clean || "Sin título";
 };
 
+const buildSlugFromName = (value: string) => {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+};
+
 export default function GalleryAdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -217,7 +227,11 @@ export default function GalleryAdminPage() {
     setIsSaving(true);
     setError(null);
     try {
-      await addCategory({ name, order: categories.length + 1 });
+      await addCategory({
+        name,
+        slug: buildSlugFromName(name),
+        order: categories.length + 1,
+      });
       const categoriesData = await getCategories();
       setCategories(categoriesData);
       setNewCategoryName("");
@@ -274,7 +288,10 @@ export default function GalleryAdminPage() {
     setIsSaving(true);
     setError(null);
     try {
-      await updateCategory(editingCategoryId, { name });
+      await updateCategory(editingCategoryId, {
+        name,
+        slug: buildSlugFromName(name),
+      });
       const categoriesData = await getCategories();
       setCategories(categoriesData);
       setEditingCategoryId(null);
@@ -302,6 +319,7 @@ export default function GalleryAdminPage() {
     try {
       await addAlbum({
         name,
+        slug: buildSlugFromName(name),
         categoryId: selectedCategory,
         order: albums.length + 1,
       });
@@ -363,7 +381,10 @@ export default function GalleryAdminPage() {
     setIsSaving(true);
     setError(null);
     try {
-      await updateAlbum(editingAlbumId, { name });
+      await updateAlbum(editingAlbumId, {
+        name,
+        slug: buildSlugFromName(name),
+      });
       if (selectedCategory) {
         const albumsData = await getAlbumsByCategory(selectedCategory);
         setAlbums(albumsData);
