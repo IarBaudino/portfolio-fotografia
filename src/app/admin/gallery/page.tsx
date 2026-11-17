@@ -327,6 +327,48 @@ export default function GalleryAdminPage() {
     }
   };
 
+  const handleMoveCategory = async (
+    categoryId: string,
+    direction: "up" | "down"
+  ) => {
+    const categoryIndex = categories.findIndex(
+      (category) => category.id === categoryId
+    );
+    const adjacentIndex =
+      direction === "up" ? categoryIndex - 1 : categoryIndex + 1;
+
+    if (
+      categoryIndex === -1 ||
+      adjacentIndex < 0 ||
+      adjacentIndex >= categories.length
+    ) {
+      return;
+    }
+
+    const category = categories[categoryIndex];
+    const adjacentCategory = categories[adjacentIndex];
+
+    setIsSaving(true);
+    setError(null);
+    try {
+      await Promise.all([
+        updateCategory(category.id, {
+          order: adjacentCategory.order ?? adjacentIndex + 1,
+        }),
+        updateCategory(adjacentCategory.id, {
+          order: category.order ?? categoryIndex + 1,
+        }),
+      ]);
+      const categoriesData = await getCategories();
+      setCategories(categoriesData);
+    } catch (saveError) {
+      console.error(saveError);
+      setError("No se pudo cambiar el orden de las categorías.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   const handleAddAlbum = async () => {
     const name = newAlbumName.trim();
     const slug = buildSlugFromName(name);
@@ -442,6 +484,47 @@ export default function GalleryAdminPage() {
     } catch (saveError) {
       console.error(saveError);
       setError("No se pudo actualizar el álbum.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleMoveAlbum = async (
+    albumId: string,
+    direction: "up" | "down"
+  ) => {
+    const albumIndex = albums.findIndex((album) => album.id === albumId);
+    const adjacentIndex =
+      direction === "up" ? albumIndex - 1 : albumIndex + 1;
+
+    if (
+      !selectedCategory ||
+      albumIndex === -1 ||
+      adjacentIndex < 0 ||
+      adjacentIndex >= albums.length
+    ) {
+      return;
+    }
+
+    const album = albums[albumIndex];
+    const adjacentAlbum = albums[adjacentIndex];
+
+    setIsSaving(true);
+    setError(null);
+    try {
+      await Promise.all([
+        updateAlbum(album.id, {
+          order: adjacentAlbum.order ?? adjacentIndex + 1,
+        }),
+        updateAlbum(adjacentAlbum.id, {
+          order: album.order ?? albumIndex + 1,
+        }),
+      ]);
+      const albumsData = await getAlbumsByCategory(selectedCategory);
+      setAlbums(albumsData);
+    } catch (saveError) {
+      console.error(saveError);
+      setError("No se pudo cambiar el orden de los álbumes.");
     } finally {
       setIsSaving(false);
     }
@@ -702,7 +785,7 @@ export default function GalleryAdminPage() {
                   </button>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  {categories.map((category) => {
+                  {categories.map((category, index) => {
                     const isEditing = editingCategoryId === category.id;
                     return (
                       <div
@@ -749,6 +832,30 @@ export default function GalleryAdminPage() {
                               Editar
                             </button>
                             <button
+                              onClick={() =>
+                                handleMoveCategory(category.id, "up")
+                              }
+                              disabled={index === 0 || isSaving}
+                              className="text-xs opacity-70 hover:opacity-100 disabled:opacity-30 disabled:cursor-not-allowed"
+                              aria-label={`Subir ${category.name}`}
+                              title="Subir categoría"
+                            >
+                              ▲
+                            </button>
+                            <button
+                              onClick={() =>
+                                handleMoveCategory(category.id, "down")
+                              }
+                              disabled={
+                                index === categories.length - 1 || isSaving
+                              }
+                              className="text-xs opacity-70 hover:opacity-100 disabled:opacity-30 disabled:cursor-not-allowed"
+                              aria-label={`Bajar ${category.name}`}
+                              title="Bajar categoría"
+                            >
+                              ▼
+                            </button>
+                            <button
                               onClick={() => handleDeleteCategory(category.id)}
                               className="text-xs text-black/70 hover:text-black"
                             >
@@ -760,6 +867,10 @@ export default function GalleryAdminPage() {
                     );
                   })}
                 </div>
+                <p className="text-xs text-[#C6C6C6]">
+                  El orden de arriba a abajo es el que se ve en la portada. La
+                  primera categoría es la que aparece al entrar.
+                </p>
               </div>
               <div className="space-y-3">
                 <label className="block text-sm font-medium text-white">
@@ -781,7 +892,7 @@ export default function GalleryAdminPage() {
                   </button>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  {albums.map((album) => {
+                  {albums.map((album, index) => {
                     const isEditing = editingAlbumId === album.id;
                     return (
                       <div
@@ -824,6 +935,24 @@ export default function GalleryAdminPage() {
                               className="text-xs text-black/70 hover:text-black"
                             >
                               Editar
+                            </button>
+                            <button
+                              onClick={() => handleMoveAlbum(album.id, "up")}
+                              disabled={index === 0 || isSaving}
+                              className="text-xs opacity-70 hover:opacity-100 disabled:opacity-30 disabled:cursor-not-allowed"
+                              aria-label={`Subir ${album.name}`}
+                              title="Subir álbum"
+                            >
+                              ▲
+                            </button>
+                            <button
+                              onClick={() => handleMoveAlbum(album.id, "down")}
+                              disabled={index === albums.length - 1 || isSaving}
+                              className="text-xs opacity-70 hover:opacity-100 disabled:opacity-30 disabled:cursor-not-allowed"
+                              aria-label={`Bajar ${album.name}`}
+                              title="Bajar álbum"
+                            >
+                              ▼
                             </button>
                             <button
                               onClick={() => handleDeleteAlbum(album.id)}
